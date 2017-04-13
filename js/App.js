@@ -9,7 +9,7 @@ import UserInfo from './Container/UserInfor';
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 
 export default class App extends React.Component{
-    render(){
+    render() {
         return(
             <Provider store={store}>
                 <Navigator
