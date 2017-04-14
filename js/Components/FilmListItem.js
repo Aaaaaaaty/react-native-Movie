@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from "react"
 import {StyleSheet, View, Image, Text, PixelRatio, Dimensions} from "react-native"
-import px2dp from '../utils/px2dp'
+import pxTodp from '../utils/pxTodp'
 
 export default class filmListItem extends Component {
   constructor(props){
@@ -34,12 +34,6 @@ export default class filmListItem extends Component {
       return (
         <View style={ styles.filmListWrapper }>
           { filmListItem }
-          <View>
-            <Text> 屏幕高度：{ Dimensions.get('window').height }</Text>
-            <Text> 屏幕宽度：{ Dimensions.get('window').width }</Text>
-            <Text> 设备像素比：{ PixelRatio.get() }</Text>
-            <Text> getPixelSizeForLayoutSize宽度：{ PixelRatio.getPixelSizeForLayoutSize(414) }</Text>
-          </View>
         </View>
       )
   }
@@ -47,13 +41,13 @@ export default class filmListItem extends Component {
 
 const styles = StyleSheet.create({
   filmListWrapper: {
-      width: PixelRatio.getPixelSizeForLayoutSize(100),
+      width: pxTodp(400),
       // margin: 50,
       flexDirection: 'column',
       // justifyContent: 'space-between',
   },
   filmListItem: {
-      // width:px2dp(750),
+      // width:pxTodp(750),
       backgroundColor: 'green',
       // height: 150,
       // margin: 50,
