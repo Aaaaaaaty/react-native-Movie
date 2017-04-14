@@ -17,6 +17,7 @@ export const filmList = (state = [], action={})=>{
         case filmScheduleActions.FILM_LIST_FETCH:
         return state
         case filmScheduleActions.FILM_LIST_SUCESS:
+        console.log('action', action.text);
         return state = action.text
         default:
         return state

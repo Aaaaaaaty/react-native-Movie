@@ -30,11 +30,12 @@ export const FILM_LIST_SUCESS="FILM_LIST_SUCESS"
 export const fetchFilmList = (url, postData) => {
     return dispatch => {
       dispatch({type:"FILM_LIST_FETCH",text:""})
-      return  fetch(url,{
+      return fetch(url,{
                 mode: 'no-cors',
                 method:"GET",
               })
               .then(response => {
+                console.log(response);
                 if (response.ok) {
                   response.json().then(json =>{dispatch({type:"FILM_LIST_SUCESS",text:json})})
                 } else {
@@ -42,6 +43,7 @@ export const fetchFilmList = (url, postData) => {
                 }
               })
               .catch(error => {
+                console.log('error', error);
                 dispatch({type:"FILM_LIST_ERROR",text:""})
               })
     }
