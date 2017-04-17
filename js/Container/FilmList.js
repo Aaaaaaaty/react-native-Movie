@@ -1169,7 +1169,6 @@ class FilmList extends Component {
       ]
     }
     return  (<View style={ styles.wrapper }>
-                <Text>这个是USERpage</Text>
                 <FilmListItem filmList={ filmList }/>
               </View>)
   }
