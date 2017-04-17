@@ -1,15 +1,22 @@
 import React, {Component, PropTypes} from "react"
-import {StyleSheet, View, Image, Text, PixelRatio, Dimensions, ScrollView} from "react-native"
+import {StyleSheet, View, Image, Text, PixelRatio, Dimensions, ScrollView, Animated } from "react-native"
 import pxTodp from '../utils/pxTodp'
 
 export default class filmListItem extends Component {
   constructor(props){
      super(props)
      this.state = {
-       listType: 'online'
+       listType: 'online',
+       fadeAnim: new Animated.Value(0), // init opacity 0
      }
   }
-
+  componentDidMount() {
+     Animated.timing(          // Uses easing functions
+       this.state.fadeAnim,    // The value to drivqe
+       {  toValue: 1,
+          duration: 2000,},           // Configuration
+     ).start();                // Don't forget start!
+   }
   render() {
     let { filmList } = this.props
     let { listType } = this.state
@@ -25,7 +32,6 @@ export default class filmListItem extends Component {
           <View style={ styles.typeList }>{ result }</View>
         )
       })()
-      console.log(filmTypeListItem);
       return (
         <View key={ 'filmListItem' + index }
               style={ styles.filmListItem }>
@@ -34,23 +40,28 @@ export default class filmListItem extends Component {
                     style={styles.image}/>
             </View>
           <View style={ styles.message }>
-            <Text>{ item.name }</Text>
-            <Text style={ styles.messageAvtor }>
-              <Text>{ item.phrase }</Text>
-              <Text>{ item.starring }</Text>
-            </Text>
+            <Text style={ styles.name }>{ item.name }</Text>
+            <View style={ styles.messageAvtor }>
+              <View><Text style={ styles.subColor }>{ item.phrase }</Text></View>
+              <View><Text numberOfLines={ 1 } style={ styles.subColor }>{ item.starring }</Text></View>
+            </View>
              { filmTypeListItem }
           </View>
-          <View style={ styles.btn }>
-            <Text>购票</Text>
+          <View style={ styles.btnWrapper }>
+            <Text style={ [ styles.btn, styles.btnBuyText ] }>购票</Text>
           </View>
         </View>
       )
     })
       return (
-        <ScrollView style={ styles.filmListWrapper }>
-          { filmListItem }
-        </ScrollView>
+
+          <ScrollView style={ styles.filmListWrapper }>
+            <Animated.View
+              style={{opacity: this.state.fadeAnim}}>
+              { filmListItem }
+            </Animated.View>
+          </ScrollView>
+
       )
   }
 }
@@ -58,6 +69,8 @@ export default class filmListItem extends Component {
 const styles = StyleSheet.create({
   filmListWrapper: {
       flexDirection: 'column',
+      marginLeft: pxTodp(30),
+      marginRight: pxTodp(30)
   },
   filmListItem: {
       marginBottom: pxTodp(50),
@@ -70,17 +83,36 @@ const styles = StyleSheet.create({
   },
   message: {
     flex: 1,
-    // backgroundColor: 'gray',
     marginLeft: pxTodp(20)
   },
   messageAvtor: {
     marginTop: pxTodp(20),
     marginBottom: pxTodp(20),
-    overflow: 'hidden',
+    flexDirection: 'column',
+  },
+  btnWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   btn: {
-    width: pxTodp(100),
-    // backgroundColor: 'yellow'
+    paddingTop: pxTodp(10),
+    paddingBottom: pxTodp(10),
+    paddingLeft: pxTodp(45),
+    paddingRight: pxTodp(45),
+    borderRadius: pxTodp(25),
+    borderWidth: pxTodp(1),
+    borderStyle: 'solid',
+    borderColor: '#fe4b37'
+  },
+  btnBuyText: {
+    color: '#fe4b37',
+    fontSize: pxTodp(28),
+  },
+  name: {
+    "fontWeight": 'bold',
+  },
+  subColor: {
+    color: '#7d838e',
   },
   typeList: {
     flexDirection: 'row',
