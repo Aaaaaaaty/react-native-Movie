@@ -7,15 +7,9 @@ export default class filmListItem extends Component {
      super(props)
      this.state = {
        listType: 'online',
-       fadeAnim: new Animated.Value(0), // init opacity 0
      }
   }
   componentDidMount() {
-     Animated.timing(          // Uses easing functions
-       this.state.fadeAnim,    // The value to drivqe
-       {  toValue: 1,
-          duration: 2000,},           // Configuration
-     ).start();                // Don't forget start!
    }
   render() {
     let { filmList } = this.props
@@ -56,10 +50,7 @@ export default class filmListItem extends Component {
       return (
 
           <ScrollView style={ styles.filmListWrapper }>
-            <Animated.View
-              style={{opacity: this.state.fadeAnim}}>
               { filmListItem }
-            </Animated.View>
           </ScrollView>
 
       )

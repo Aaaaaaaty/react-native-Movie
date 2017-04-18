@@ -3,6 +3,7 @@ import {mapStateToProps,mapDispatchToProps} from '../Redux/Store/Store';
 import { connect ,Provider } from 'react-redux'
 import {StyleSheet, View, Image, Text} from "react-native"
 import FilmListItem from '../Components/FilmListItem'
+import GeneralScrollView from '../Components/GeneralScrollView'
 
 class FilmList extends Component {
   constructor(props){
@@ -1167,8 +1168,15 @@ class FilmList extends Component {
           "isDmax": false
         }
       ]
-    }
+    } //列表假数据
+    let filmListScrollViewImg = [
+      'https://img5.mtime.cn/mg/2017/04/16/072713.93270227.jpg',
+      'https://img5.mtime.cn/mg/2017/04/12/084705.35310921.jpg',
+      'https://img5.mtime.cn/mg/2017/04/14/085243.95232267.jpg'
+
+    ]
     return  (<View style={ styles.wrapper }>
+                <GeneralScrollView filmListScrollViewImg={ filmListScrollViewImg }/>
                 <FilmListItem filmList={ filmList }/>
               </View>)
   }
