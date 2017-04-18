@@ -17,6 +17,7 @@ export default class GeneralScrollView extends Component {
       offSetX: 0
     }
     this._index = 0;// 当前正在显示的图片
+    console.log(props.filmListScrollViewImg);
     this._max = props.filmListScrollViewImg.length;// 图片总数
   }
   onScrollBeginDrag(e) {
@@ -39,10 +40,23 @@ export default class GeneralScrollView extends Component {
     offSetX = this._index * screenWidth
     this._scrollView.scrollTo({x: offSetX, y: 0, animated: true})
   }
+  componentWillMount() {
+    let { filmListScrollViewImg } = this.props
+    let _viewImg = filmListScrollViewImg.slice()
+    if( filmListScrollViewImg.length > 1) {
+      let lastOne = _viewImg.pop()
+      _viewImg.unshift(lastOne)
+      _viewImg.push(lastOne)
+    }
+    this.setState({
+      _viewImg: _viewImg,
+      offSet: {x: screenWidth}
+    })
+  }
   render() {
     let { filmListScrollViewImg } = this.props
-    let { selectedImageIndex, offSet } = this.state
-    let images = filmListScrollViewImg.map((item, index) => {
+    let { selectedImageIndex, offSet, _viewImg } = this.state
+    let images = _viewImg.map((item, index) => {
       let uri = { uri: item }
       return (
         <TouchableOpacity
