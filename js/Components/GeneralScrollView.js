@@ -59,7 +59,8 @@ export default class GeneralScrollView extends Component {
     })
     return (
       <View style={ styles.container }>
-        <ScrollView horizontal={ true }
+        <ScrollView
+            horizontal={ true }
             showsHorizontalScrollIndicator={ false }
             showsVerticalScrollIndicator={ false }
             onScrollBeginDrag={ this.onScrollBeginDrag.bind(this) }
