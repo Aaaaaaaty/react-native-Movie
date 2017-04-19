@@ -3,7 +3,7 @@ import {mapStateToProps,mapDispatchToProps} from '../Redux/Store/Store';
 import { connect ,Provider } from 'react-redux'
 import {StyleSheet, View, Image, Text} from "react-native"
 import FilmListItem from '../Components/FilmListItem'
-import GeneralScrollView from '../Components/GeneralScrollView'
+import FilmSwiper from '../Components/FilmSwiper'
 
 class FilmList extends Component {
   constructor(props){
@@ -1176,7 +1176,7 @@ class FilmList extends Component {
 
     ]
     return  (<View style={ styles.wrapper }>
-                <GeneralScrollView filmListScrollViewImg={ filmListScrollViewImg }/>
+                <FilmSwiper filmListScrollViewImg={ filmListScrollViewImg }/>
                 <FilmListItem filmList={ filmList }/>
               </View>)
   }

@@ -34,7 +34,7 @@ export default class filmListItem extends Component {
                     style={styles.image}/>
             </View>
           <View style={ styles.message }>
-            <Text style={ styles.name }>{ item.name }</Text>
+            <Text style={ styles.name } numberOfLines={ 1 }>{ item.name }</Text>
             <View style={ styles.messageAvtor }>
               <View><Text style={ styles.subColor }>{ item.phrase }</Text></View>
               <View><Text numberOfLines={ 1 } style={ styles.subColor }>{ item.starring }</Text></View>
@@ -49,7 +49,8 @@ export default class filmListItem extends Component {
     })
       return (
 
-          <ScrollView style={ styles.filmListWrapper }>
+          <ScrollView style={ styles.filmListWrapper }
+                      showsVerticalScrollIndicator={ false }>
               { filmListItem }
           </ScrollView>
 
@@ -60,8 +61,9 @@ export default class filmListItem extends Component {
 const styles = StyleSheet.create({
   filmListWrapper: {
       flexDirection: 'column',
+      marginTop: pxTodp(30),
       marginLeft: pxTodp(30),
-      marginRight: pxTodp(30)
+      marginRight: pxTodp(30),
   },
   filmListItem: {
       marginBottom: pxTodp(50),
