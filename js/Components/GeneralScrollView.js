@@ -14,10 +14,10 @@ export default class GeneralScrollView extends Component {
       startX:0,
       endX: 0,
       disX: 0,
-      offSetX: 0
+      offSetX: 0,
+      scrollType: 'next'
     }
-    this._index = 0;// 当前正在显示的图片
-    console.log(props.filmListScrollViewImg);
+    this._index = 1;// 当前正在显示的图片
     this._max = props.filmListScrollViewImg.length;// 图片总数
   }
   onScrollBeginDrag(e) {
@@ -27,16 +27,41 @@ export default class GeneralScrollView extends Component {
     })
   }
   onMomentumScrollEnd(e) { // 惯性滑动停止的那一刻
+    let { scrollType } = this.state
+    if(scrollType === 'next') {
+      this.next()
+    } else {
+      this.prev()
+    }
   }
   onScrollEndDrag(e) {
-    let { startX, offSetX } = this.state
+    let { startX, offSetX, scrollType } = this.state
     let endX = e.nativeEvent.contentOffset.x
     let disX = endX - startX
     if(disX > screenWidth / 4) {
-      this._index ++
+      scrollType = 'next'
+      this._scrollView.scrollTo({x: screenWidth * 2, y: 0, animated: true})
     } else if(disX < -screenWidth / 4) {
-      this._index --
+      scrollType = 'prev'
     }
+    this.setState({
+      scrollType: scrollType
+    })
+
+  }
+  next() {
+    let { _viewImg } = this.state
+    let firstOne = _viewImg.shift()
+    _viewImg.push(firstOne)
+    this.setState({
+      _viewImg: _viewImg
+    }, () => {
+      this._scrollView.scrollTo({x: screenWidth, y: 0, animated: false})
+    })
+
+  }
+  prev() {
+    this._index --
     offSetX = this._index * screenWidth
     this._scrollView.scrollTo({x: offSetX, y: 0, animated: true})
   }
@@ -61,6 +86,7 @@ export default class GeneralScrollView extends Component {
       return (
         <TouchableOpacity
           key={ 'scrollView' + index }
+          style={ styles.animatedImage }
           onPress={()=>console.log('a')}
           activeOpacity={ 1 }>
           <Image  style={ styles.image }
@@ -82,7 +108,7 @@ export default class GeneralScrollView extends Component {
             onScrollEndDrag={ this.onScrollEndDrag.bind(this) }
             contentOffset={offSet}
             ref={(scrollView) => { this._scrollView = scrollView }}>
-            <Animated.View style={ styles.animatedImage } >{ images }</Animated.View>
+            { images }
         </ScrollView>
         <View style={ styles.circleRelative }>
           <View style={ styles.circleWrapper }>{ circles }</View><
