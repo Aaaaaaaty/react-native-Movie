@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {mapStateToProps,mapDispatchToProps} from '../Redux/Store/Store';
 import { connect ,Provider } from 'react-redux'
-import {StyleSheet, View, Image, Text} from "react-native"
+import {StyleSheet, View, Image, Text, ScrollView} from "react-native"
 import FilmListItem from '../Components/FilmListItem'
 import FilmSwiper from '../Components/FilmSwiper'
 
@@ -1175,10 +1175,10 @@ class FilmList extends Component {
       'https://img5.mtime.cn/mg/2017/04/14/085243.95232267.jpg'
 
     ]
-    return  (<View style={ styles.wrapper }>
+    return  (<ScrollView style={ styles.wrapper }>
                 <FilmSwiper filmListScrollViewImg={ filmListScrollViewImg }/>
                 <FilmListItem filmList={ filmList }/>
-              </View>)
+              </ScrollView>)
   }
 
 }
@@ -1188,6 +1188,7 @@ const styles = StyleSheet.create ({
     // width: 750,
     // height: 750,
     // flex: 1
+    flexDirection: 'column'
   }
 })
 export default connect( mapStateToProps, mapDispatchToProps )( FilmList )

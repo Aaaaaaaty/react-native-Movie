@@ -1,16 +1,26 @@
 import React, {Component, PropTypes} from "react"
-import {StyleSheet, View, Image, Text, PixelRatio, Dimensions, ScrollView, Animated } from "react-native"
+import {StyleSheet, View, Image, Text, PixelRatio, Dimensions, ScrollView, Animated, ListView } from "react-native"
 import pxTodp from '../utils/pxTodp'
 
 export default class filmListItem extends Component {
   constructor(props){
-     super(props)
-     this.state = {
-       listType: 'online',
-     }
+      super(props)
+      const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
+      this.state = {
+        dataSource: ds.cloneWithRows([
+          'John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin'
+        ]),
+        listType: 'online',
+      }
   }
   componentDidMount() {
-   }
+    let { filmList } = this.props
+    let { listType } = this.state
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
+    this.setState({
+      dataSource: ds.cloneWithRows(filmList[listType])
+    })
+  }
   render() {
     let { filmList } = this.props
     let { listType } = this.state
@@ -48,12 +58,12 @@ export default class filmListItem extends Component {
       )
     })
       return (
-
-          <ScrollView style={ styles.filmListWrapper }
-                      showsVerticalScrollIndicator={ false }>
-              { filmListItem }
-          </ScrollView>
-
+          <View>
+            <ScrollView style={ styles.filmListWrapper }
+                        showsVerticalScrollIndicator={ false }>
+                { filmListItem }
+            </ScrollView>
+          </View>
       )
   }
 }
