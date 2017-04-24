@@ -1,27 +1,52 @@
-import React, {Component, PropTypes} from "react"
-import {StyleSheet, View, Image, Text, PixelRatio, Dimensions, ScrollView, Animated } from "react-native"
+import React, {
+  Component,
+  PropTypes
+} from "react"
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  PixelRatio,
+  Dimensions,
+  ScrollView,
+  Animated
+} from "react-native"
 import pxTodp from '../utils/pxTodp'
 
 export default class filmListItem extends Component {
-  constructor(props){
-     super(props)
-     this.state = {
-       listType: 'online',
-     }
+  constructor(props) {
+    super(props)
+    this.state = {
+      listType: 'online',
+    }
   }
-  componentDidMount() {
-   }
+  componentDidMount() {}
   render() {
-    let { filmList } = this.props
-    let { listType } = this.state
+    let {
+      filmList
+    } = this.props
+    let {
+      listType
+    } = this.state
     let filmListItem = filmList[listType].map((item, index) => {
-      let posterUrl = { uri: item.posterUrl }
+      let posterUrl = {
+        uri: item.posterUrl
+      }
       let filmTypeListItem = (() => {
         let result = []
-        if(item.is2D) result.push((() => { return (<View key={Math.random()*100} style={ [styles.type, styles.type_d] }><Text style={ styles.color }>2D</Text></View>)})())
-        if(item.is3D) result.push((() => { return (<View key={Math.random()*100} style={ [styles.type, styles.type_d] }><Text style={ styles.color }>3D</Text></View>)})())
-        if(item.isImax) result.push((() => { return (<View key={Math.random()*100} style={ [styles.type, styles.type_m] }><Text style={ styles.color }>IMAX</Text></View>)})())
-        if(item.isDmax) result.push((() => { return (<View key={Math.random()*100} style={ [styles.type, styles.type_m] }><Text style={ styles.color }>DMAX</Text></View>)})())
+        if (item.is2D) result.push((() => {
+          return (<View key={Math.random()*100} style={ [styles.type, styles.type_d] }><Text style={ styles.color }>2D</Text></View>)
+        })())
+        if (item.is3D) result.push((() => {
+          return (<View key={Math.random()*100} style={ [styles.type, styles.type_d] }><Text style={ styles.color }>3D</Text></View>)
+        })())
+        if (item.isImax) result.push((() => {
+          return (<View key={Math.random()*100} style={ [styles.type, styles.type_m] }><Text style={ styles.color }>IMAX</Text></View>)
+        })())
+        if (item.isDmax) result.push((() => {
+          return (<View key={Math.random()*100} style={ [styles.type, styles.type_m] }><Text style={ styles.color }>DMAX</Text></View>)
+        })())
         return (
           <View style={ styles.typeList }>{ result }</View>
         )
@@ -47,26 +72,26 @@ export default class filmListItem extends Component {
         </View>
       )
     })
-      return (
+    return (
 
-          <ScrollView style={ styles.filmListWrapper }>
-              { filmListItem }
-          </ScrollView>
+      <ScrollView style={ styles.filmListWrapper }>
+        { filmListItem }
+      </ScrollView>
 
-      )
+    )
   }
 }
 
 const styles = StyleSheet.create({
   filmListWrapper: {
-      flexDirection: 'column',
-      marginLeft: pxTodp(30),
-      marginRight: pxTodp(30)
+    flexDirection: 'column',
+    marginLeft: pxTodp(30),
+    marginRight: pxTodp(30)
   },
   filmListItem: {
-      marginBottom: pxTodp(50),
-      flexDirection: 'row',
-      justifyContent: 'space-between',
+    marginBottom: pxTodp(50),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   image: {
     width: pxTodp(150),
