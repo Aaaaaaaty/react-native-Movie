@@ -10,18 +10,38 @@ import {
   PixelRatio,
   Dimensions,
   ScrollView,
-  Animated
+  Animated,
+  ListView
 } from "react-native"
 import pxTodp from '../utils/pxTodp'
 
 export default class filmListItem extends Component {
   constructor(props) {
     super(props)
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    })
     this.state = {
+      dataSource: ds.cloneWithRows([
+        'John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin'
+      ]),
       listType: 'online',
     }
   }
-  componentDidMount() {}
+  componentDidMount() {
+    let {
+      filmList
+    } = this.props
+    let {
+      listType
+    } = this.state
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    })
+    this.setState({
+      dataSource: ds.cloneWithRows(filmList[listType])
+    })
+  }
   render() {
     let {
       filmList
@@ -59,7 +79,7 @@ export default class filmListItem extends Component {
                     style={styles.image}/>
             </View>
           <View style={ styles.message }>
-            <Text style={ styles.name }>{ item.name }</Text>
+            <Text style={ styles.name } numberOfLines={ 1 }>{ item.name }</Text>
             <View style={ styles.messageAvtor }>
               <View><Text style={ styles.subColor }>{ item.phrase }</Text></View>
               <View><Text numberOfLines={ 1 } style={ styles.subColor }>{ item.starring }</Text></View>
@@ -73,11 +93,12 @@ export default class filmListItem extends Component {
       )
     })
     return (
-
-      <ScrollView style={ styles.filmListWrapper }>
-        { filmListItem }
-      </ScrollView>
-
+      <View>
+            <ScrollView style={ styles.filmListWrapper }
+                        showsVerticalScrollIndicator={ false }>
+                { filmListItem }
+            </ScrollView>
+          </View>
     )
   }
 }
@@ -85,8 +106,9 @@ export default class filmListItem extends Component {
 const styles = StyleSheet.create({
   filmListWrapper: {
     flexDirection: 'column',
+    marginTop: pxTodp(30),
     marginLeft: pxTodp(30),
-    marginRight: pxTodp(30)
+    marginRight: pxTodp(30),
   },
   filmListItem: {
     marginBottom: pxTodp(50),

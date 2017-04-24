@@ -16,6 +16,7 @@ import {
 import pxTodp from '../utils/pxTodp'
 // 屏幕宽度
 var screenWidth = Dimensions.get('window').width;
+import Swiper from 'react-native-swiper';
 
 export default class GeneralScrollView extends Component {
   constructor(props) {
@@ -69,6 +70,11 @@ export default class GeneralScrollView extends Component {
       })
     } else if (disX < -screenWidth / 4) {
       scrollType = 'prev'
+      this._scrollView.scrollTo({
+        x: 0,
+        y: 0,
+        animated: true
+      })
     }
     this.setState({
       scrollType: scrollType
@@ -79,7 +85,9 @@ export default class GeneralScrollView extends Component {
     let {
       _viewImg
     } = this.state
+    _viewImg.shift()
     let firstOne = _viewImg.shift()
+    _viewImg.unshift(firstOne)
     _viewImg.push(firstOne)
     this.setState({
       _viewImg: _viewImg
@@ -93,12 +101,21 @@ export default class GeneralScrollView extends Component {
 
   }
   prev() {
-    this._index--
-      offSetX = this._index * screenWidth
-    this._scrollView.scrollTo({
-      x: offSetX,
-      y: 0,
-      animated: true
+    let {
+      _viewImg
+    } = this.state
+    _viewImg.pop()
+    let lastOne = _viewImg.pop()
+    _viewImg.push(lastOne)
+    _viewImg.unshift(lastOne)
+    this.setState({
+      _viewImg: _viewImg
+    }, () => {
+      this._scrollView.scrollTo({
+        x: screenWidth,
+        y: 0,
+        animated: false
+      })
     })
   }
   componentWillMount() {
@@ -196,4 +213,29 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     marginTop: pxTodp(-30)
   },
+  wrapper: {
+ },
+ slide1: {
+   flex: 1,
+   justifyContent: 'center',
+   alignItems: 'center',
+   backgroundColor: '#9DD6EB',
+ },
+ slide2: {
+   flex: 1,
+   justifyContent: 'center',
+   alignItems: 'center',
+   backgroundColor: '#97CAE5',
+ },
+ slide3: {
+   flex: 1,
+   justifyContent: 'center',
+   alignItems: 'center',
+   backgroundColor: '#92BBD9',
+ },
+ text: {
+   color: '#fff',
+   fontSize: 30,
+   fontWeight: 'bold',
+ }
 })
