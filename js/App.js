@@ -10,7 +10,7 @@ import {
 import store from './Redux/Store/Store';
 import FilmList from './Container/FilmList';
 import FilmGoodsList from './Container/FilmGoodsList';
-import SimpleTabs from './simpleTabs';
+import AppTabs from './AppTabs';
 import {
     createStore,
     combineReducers,
@@ -26,7 +26,7 @@ export default class App extends React.Component {
         return (
             <Provider store={store}>
                 <Navigator
-                    initialRoute={{component: SimpleTabs}}
+                    initialRoute={{component: AppTabs}}
                     renderScene={(route, navigator) =>
                         <route.component {...route.args} navigator={navigator} />
                     }

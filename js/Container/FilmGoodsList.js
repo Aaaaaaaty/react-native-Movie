@@ -98,7 +98,7 @@ class FilmGoodsList extends Component {
 
 		if (filmGoodsListResult) {
 			return (
-				<View style = { {flex: 1} }>
+				<View style = { styles.wrapper }>
 					<FilmGoodsListItem filmGoodsListResult = { filmGoodsListResult } filmGoodsListCounter = { filmGoodsListCounter } getFilmGoodsCount = { getFilmGoodsCount }/>
 					<FilmGoodsClear filmGoodsListResult = { filmGoodsListResult } filmGoodsListCounter = { filmGoodsListCounter }/>
 				</View>
@@ -112,7 +112,10 @@ class FilmGoodsList extends Component {
 }
 
 const styles = StyleSheet.create({
-
+	wrapper: {
+		flex: 1,
+		backgroundColor: '#d7d7d7'
+	}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilmGoodsList)
