@@ -1,13 +1,5 @@
 import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  TouchableOpacity,
-  Image
-} from 'react-native';
+import {  AppRegistry,  StyleSheet, Text, View, Dimensions, TouchableOpacity, Image } from 'react-native';
 import pxTodp from '../utils/pxTodp'
 import Swiper from 'react-native-swiper';
 
