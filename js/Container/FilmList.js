@@ -20,6 +20,9 @@ import FilmListItem from '../Components/FilmListItem'
 import FilmSwiper from '../Components/FilmSwiper'
 
 class FilmList extends Component {
+  static navigationOptions = {
+    tabBarLabel: '电影',
+  }
   constructor(props) {
     super(props);
   }

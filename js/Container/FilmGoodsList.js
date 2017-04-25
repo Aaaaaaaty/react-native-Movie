@@ -19,6 +19,9 @@ import FilmGoodsListItem from '../Components/FilmGoodsListItem'
 import FilmGoodsClear from '../Components/FilmGoodsClear'
 
 class FilmGoodsList extends Component {
+	static navigationOptions = {
+    tabBarLabel: '卖品',
+  }
 	constructor(props) {
 		super(props);
 

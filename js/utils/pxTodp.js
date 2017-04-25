@@ -12,5 +12,5 @@ export default function pxTodp(uiElementPx) {
     //console.log(deviceWidthDp);
     //console.log(deviceHeightDp);
     return uiElementPx = deviceWidthDp * uiElementPx / uiWidthPx
-    
+
 }

@@ -20,32 +20,16 @@ import {
     TabNavigator,
 } from 'react-navigation';
 
-
-const RoutesList = {
-    FilmGoodsList: {
-        name: 'fiml sale goods list',
-        descrition: 'show the film sale goods list',
-        screen: FilmGoodsList
-    },
-    FilmList: {
-        name: 'film list',
-        description: 'show the film list',
-        screen: FilmList
-    }
-}
-
-FilmList.navigationOptions = {
-    tabBarLabel: 'FilmList',
-}
-
 const SimpleTabs = TabNavigator({
     Home: {
         screen: FilmList,
-        path: '',
+        tabBarLabel: '电影',
+        // path: '',
     },
     FilmGoodsList: {
         screen: FilmGoodsList,
-        path: 'FilmGoodsList'
+        tabBarLabel: '卖品',
+        // path: 'FilmGoodsList'
     }
 })
 export default SimpleTabs;
