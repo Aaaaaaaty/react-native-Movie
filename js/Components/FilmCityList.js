@@ -12,6 +12,7 @@ export default class FilmCityList extends Component {
         });
     this.state = {
         dataSource: ds.cloneWithRowsAndSections(this.getRows()),
+        listSectionViewY: {}
     };
   }
   getRows(){
@@ -56,6 +57,7 @@ export default class FilmCityList extends Component {
       let letterArr= []
       let Sym = dataSource[0].firstLetter
       let result = [Sym]
+      let SymListObg = {}
       dataSource.forEach((item, index) => {
         if(item.firstLetter != Sym) {
           Sym = item.firstLetter
@@ -74,7 +76,8 @@ export default class FilmCityList extends Component {
   renderRow(rowData,sectionID,rowID,highlightRow){
       if(rowData.isLast) {
         return (
-            <View style={styles.cityName}>
+            <View
+                style={styles.cityName}>
                 <Text style={styles.rowItemText}>{rowData.cityName}</Text>
             </View>
         )
@@ -88,18 +91,48 @@ export default class FilmCityList extends Component {
   }
   renderSectionHeader(sectionData, sectionID){
       return(
-          <View style={styles.cityNameSym}>
+          <View
+              onLayout={(event) => this.measureSectionView(event, sectionID)}
+              style={styles.cityNameSym}>
               <Text>{sectionID}</Text>
           </View>
       )
   }
+  measureSectionView(event, sectionID) {
+    let { listSectionViewY } = this.state
+    listSectionViewY[sectionID] = event.nativeEvent.layout.y
+    this.setState({
+        listSectionViewY: listSectionViewY
+    })
+  }
+  pressListSym(item) {
+    console.log(item);
+    let { listSectionViewY } = this.state
+    this.listView.scrollTo({x: 0, y: listSectionViewY[item], animated: false})
+  }
   render() {
+    let listSym = Object.keys(this.getRows()).map(( item, index) => {
+      return (
+        <View key={ 'listSym' + index } >
+          <Text onPress={ this.pressListSym.bind(this, item) }
+                style={ styles.listSymText }>{item}</Text>
+        </View>
+
+      )
+    })
     return (
-      <ListView
-              style={styles.wrapper}
-              renderSectionHeader = {this.renderSectionHeader}
-              dataSource={this.state.dataSource}
-              renderRow={this.renderRow} />
+      <View>
+        <ListView
+                style={styles.wrapper}
+                ref={(listview) => this.listView = listview}
+                renderSectionHeader = {this.renderSectionHeader.bind(this)}
+                dataSource={this.state.dataSource}
+                showsVerticalScrollIndicator={ false }
+                renderRow={this.renderRow} />
+          <View style={ styles.listWrapper }>
+            { listSym }
+          </View>
+      </View>
 
     )
   }
@@ -108,13 +141,23 @@ FilmCityList.navigationOptions = {
   headerTintColor: 'white',
   title: '城市选择',
   headerStyle: {
-    backgroundColor: '#fe4b37',
+    backgroundColor: 'rgba(254,75,55,1)',
   },
 }
 var styles = StyleSheet.create({
   wrapper: {
     flexDirection: 'column',
     backgroundColor: '#ffffff'
+  },
+  listWrapper: {
+    position: 'absolute',
+    top: pxTodp(300),
+    right: pxTodp(0),
+    backgroundColor: 'rgba(0,0,0,0)'
+  },
+  listSymText: {
+    color: '#3583f0',
+    textAlign: 'center'
   },
   cityName: {
     paddingBottom: pxTodp(20),
@@ -133,6 +176,3 @@ var styles = StyleSheet.create({
     paddingLeft: pxTodp(30)
   }
 })
-// <ScrollView style={ styles.wrapper }>
-//   { cityListMap }
-// </ScrollView>
