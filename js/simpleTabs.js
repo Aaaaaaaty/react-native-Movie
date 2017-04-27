@@ -10,6 +10,7 @@ import {
 import store from './Redux/Store/Store';
 import FilmList from './Container/FilmList';
 import FilmGoodsList from './Container/FilmGoodsList';
+import FilmListDetail from './Container/FilmListDetail';
 // import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
     createStore,
@@ -46,6 +47,10 @@ const SimpleTabs = TabNavigator({
     FilmGoodsList: {
         screen: FilmGoodsList,
         path: 'FilmGoodsList'
+    },
+    FilmListDetail: {
+        screen: FilmListDetail,
+        path: 'FilmListDetail'
     }
 })
 export default SimpleTabs;
