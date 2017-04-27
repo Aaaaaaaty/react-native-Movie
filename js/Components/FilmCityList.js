@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import {  AppRegistry,  StyleSheet, Text, View, Dimensions, TouchableOpacity, Image, ScrollView, ListView, TextInput } from 'react-native';
+import {  AppRegistry,  StyleSheet, Text, View, Dimensions, TouchableOpacity, Image, ScrollView, ListView, TextInput, LayoutAnimation } from 'react-native';
 import pxTodp from '../utils/pxTodp'
-
+// LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
 var screenWidth = Dimensions.get('window').width;
+this.isHeaderShow = true
 export default class FilmCityList extends Component {
   constructor(props) {
     super(props);
@@ -12,8 +13,14 @@ export default class FilmCityList extends Component {
         });
     this.state = {
         dataSource: ds.cloneWithRowsAndSections(this.getRows()),
-        listSectionViewY: {}
+        listSectionViewY: {},
+        inputWidth: pxTodp(600),
+        inputJustifyContent: 'center'
     };
+  }
+  componentWillMount() {
+    // 创建动画
+    // LayoutAnimation.linear();
   }
   getHotCity(cityList) {
     let hotCityList = cityList.filter(( item, index) => {
@@ -92,16 +99,33 @@ export default class FilmCityList extends Component {
       return dataObj
   }
   inputOnFocus() {
-    console.log(1);
+    // LayoutAnimation.linear()
+    let config = {
+      duration: 700,   //持续时间
+      create: {   // 视图创建
+        type: LayoutAnimation.Types.linear,
+      },
+      update: { // 视图更新
+        type: LayoutAnimation.Types.spring,
+        springDamping: 0.4
+      },
+    }
+    LayoutAnimation.configureNext(config)
+    this.setState({
+      inputWidth: pxTodp(300),
+      inputJustifyContent: 'flex-start'
+    },() => {
+      console.log(this.state.inputWidth);
+      // LayoutAnimation.linear();
+    })
   }
   renderRow(rowData,sectionID,rowID,highlightRow) {
-    console.log(this);
       if(sectionID == '搜索') {
         return (
-          <View style={ styles.inputWrapper }>
-            <TextInput  style={{height: 40}}
-                        placeholder="Type here to translate!"
-                        onFocus={ this.inputOnFocus }/>
+          <View style={ [styles.inputWrapper, {justifyContent: this.state.inputJustifyContent}] }>
+            <TextInput  style={[styles.inputInner, { width: this.state.inputWidth }] }
+                        placeholder="城市名称或首字母"
+                        onFocus={ this.inputOnFocus.bind(this) }/>
           </View>
         )
       }
@@ -201,6 +225,7 @@ FilmCityList.navigationOptions = {
   headerStyle: {
     backgroundColor: 'rgba(254,75,55,1)',
   },
+  headerVisible: this.isHeaderShow
 }
 var styles = StyleSheet.create({
   wrapper: {
@@ -208,12 +233,22 @@ var styles = StyleSheet.create({
     backgroundColor: '#ffffff'
   },
   inputWrapper: {
-    backgroundColor: '#ffffff',
-    marginLeft: pxTodp(40)
+    backgroundColor: '#C0C0C0',
+    flexDirection: 'row',
+    // justifyContent: 'center',
+    // marginLeft: pxTodp(40)
   },
   inputInner: {
-    // backgroundColor: '#ffffff',
-
+    height: pxTodp(50),
+    borderColor: '#ffffff',
+    borderWidth: pxTodp(1),
+    backgroundColor: '#ffffff',
+    borderRadius: pxTodp(10),
+    marginTop: pxTodp(10),
+    marginBottom: pxTodp(10),
+    textAlign: 'center',
+    fontSize: pxTodp(24),
+    color: 'gray'
   },
   listWrapper: {
     position: 'absolute',

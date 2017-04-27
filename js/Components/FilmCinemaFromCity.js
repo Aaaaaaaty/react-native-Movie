@@ -19,7 +19,6 @@ FilmCinemaFromCity.navigationOptions = {
   headerStyle: {
     backgroundColor: '#fe4b37'
   },
-  headerBackTitle: null
 }
 var styles = StyleSheet.create({
 })

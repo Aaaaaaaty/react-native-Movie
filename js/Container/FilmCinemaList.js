@@ -86,7 +86,6 @@ import { StackNavigator, } from 'react-navigation';
 //
 // })
 // export default connect(mapStateToProps, mapDispatchToProps)(FilmCinemaList)
-
 const FilmCinemaList = StackNavigator({
   FilmCinemaFromCity: {
     screen: FilmCinemaFromCity,
@@ -95,10 +94,12 @@ const FilmCinemaList = StackNavigator({
     screen: FilmCityList,
   },
 }, {
-  headerMode: 'float',
+  headerMode: 'screen',
+  mode: 'modal',
   title: '影院'
 })
 FilmCinemaList.navigationOptions = {
   tabBarLabel: '影院',
 }
 export default FilmCinemaList
+// export default connect(mapStateToProps, mapDispatchToProps)(FilmCinemaList)
