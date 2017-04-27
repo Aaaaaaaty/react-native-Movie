@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  AppRegistry,  StyleSheet, Text, View, Dimensions, TouchableOpacity, Image, ScrollView, ListView } from 'react-native';
+import {  AppRegistry,  StyleSheet, Text, View, Dimensions, TouchableOpacity, Image, ScrollView, ListView, TextInput } from 'react-native';
 import pxTodp from '../utils/pxTodp'
 
 var screenWidth = Dimensions.get('window').width;
@@ -14,6 +14,21 @@ export default class FilmCityList extends Component {
         dataSource: ds.cloneWithRowsAndSections(this.getRows()),
         listSectionViewY: {}
     };
+  }
+  getHotCity(cityList) {
+    let hotCityList = cityList.filter(( item, index) => {
+      return item.isHot == 'true'
+    })
+    let result = []
+    hotCityList.forEach((item, index) => {
+      let arrRowIndex = Math.floor(index / 4)
+      let arrColIndex = index % 4
+      if(!(result[arrRowIndex] instanceof Array)) {
+        result[arrRowIndex] = []
+      }
+      result[arrRowIndex][arrColIndex] = item
+    })
+    return result
   }
   getRows(){
       let cityList = {"result":[{"cityCode":"123451","cityName":"北京","isHot":"false","firstLetter":"B"},
@@ -65,6 +80,9 @@ export default class FilmCityList extends Component {
         }
       })
       dataSource[dataSource.length - 1].isLast = true
+      dataObj['搜索'] = [{}]
+      dataObj['定位城市'] = [{cityName: '北京', isHot: 'true', isLast: true}]
+      dataObj['热门城市'] = this.getHotCity(dataSource)
       dataSource.forEach(( item, index ) => {
         if(!dataObj[item.firstLetter]) {
           dataObj[item.firstLetter] = []
@@ -73,7 +91,33 @@ export default class FilmCityList extends Component {
       })
       return dataObj
   }
-  renderRow(rowData,sectionID,rowID,highlightRow){
+  inputOnFocus() {
+    console.log(1);
+  }
+  renderRow(rowData,sectionID,rowID,highlightRow) {
+    console.log(this);
+      if(sectionID == '搜索') {
+        return (
+          <View style={ styles.inputWrapper }>
+            <TextInput  style={{height: 40}}
+                        placeholder="Type here to translate!"
+                        onFocus={ this.inputOnFocus }/>
+          </View>
+        )
+      }
+      if(sectionID == '热门城市') {
+        let hotCity = rowData.map((item, index) => {
+          return (
+              <Text key={ 'hotCity' + index } style={ styles.rowItemTextHot }>{item.cityName}</Text>
+          )
+        })
+        return (
+          <View
+              style={styles.cityNameHot}>
+              { hotCity }
+          </View>
+        )
+      }
       if(rowData.isLast) {
         return (
             <View
@@ -90,13 +134,27 @@ export default class FilmCityList extends Component {
       }
   }
   renderSectionHeader(sectionData, sectionID){
-      return(
+      if(sectionID == '搜索') {
+        return null
+      }
+      if(sectionID == '定位城市' || sectionID == '热门城市') {
+        return (
           <View
               onLayout={(event) => this.measureSectionView(event, sectionID)}
-              style={styles.cityNameSym}>
+              style={ styles.cityNameSymHot }>
               <Text>{sectionID}</Text>
           </View>
-      )
+        )
+      } else {
+        return(
+            <View
+                onLayout={(event) => this.measureSectionView(event, sectionID)}
+                style={ styles.cityNameSym }>
+                <Text>{sectionID}</Text>
+            </View>
+        )
+      }
+
   }
   measureSectionView(event, sectionID) {
     let { listSectionViewY } = this.state
@@ -105,33 +163,33 @@ export default class FilmCityList extends Component {
         listSectionViewY: listSectionViewY
     })
   }
-  pressListSym(item) {
-    console.log(item);
+  pressListSym(item) { //传递索引值如A，B，C，D
     let { listSectionViewY } = this.state
     this.listView.scrollTo({x: 0, y: listSectionViewY[item], animated: false})
   }
   render() {
-    let listSym = Object.keys(this.getRows()).map(( item, index) => {
-      return (
+    let listSym = Object.keys(this.getRows()).map((item, index) => {
+      if(item == '热门城市') item = '最热'
+      if(item == '定位城市') item = '定位'
+       return (
         <View key={ 'listSym' + index } >
           <Text onPress={ this.pressListSym.bind(this, item) }
                 style={ styles.listSymText }>{item}</Text>
         </View>
-
       )
     })
     return (
       <View>
-        <ListView
-                style={styles.wrapper}
-                ref={(listview) => this.listView = listview}
-                renderSectionHeader = {this.renderSectionHeader.bind(this)}
-                dataSource={this.state.dataSource}
-                showsVerticalScrollIndicator={ false }
-                renderRow={this.renderRow} />
-          <View style={ styles.listWrapper }>
-            { listSym }
-          </View>
+          <ListView
+                  contentContainerStyle={ styles.wrapper }
+                  ref={(listview) => this.listView = listview}
+                  renderSectionHeader = { this.renderSectionHeader.bind(this) }
+                  dataSource={ this.state.dataSource }
+                  showsVerticalScrollIndicator={ false }
+                  renderRow={ this.renderRow.bind(this) } />
+            <View style={ styles.listWrapper }>
+              { listSym }
+            </View>
       </View>
 
     )
@@ -149,6 +207,14 @@ var styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#ffffff'
   },
+  inputWrapper: {
+    backgroundColor: '#ffffff',
+    marginLeft: pxTodp(40)
+  },
+  inputInner: {
+    // backgroundColor: '#ffffff',
+
+  },
   listWrapper: {
     position: 'absolute',
     top: pxTodp(300),
@@ -165,14 +231,37 @@ var styles = StyleSheet.create({
     width: pxTodp(650),
     marginLeft: pxTodp(40)
   },
+  rowItemTextHot: {
+    borderWidth: pxTodp(1),
+    borderColor: 'gray',
+    marginLeft: pxTodp(30),
+    paddingTop: pxTodp(20),
+    paddingBottom: pxTodp(20),
+    width: pxTodp(150),
+    textAlign: 'center'
+  },
+  cityNameHot: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end',
+    marginRight: pxTodp(60),
+    marginTop: pxTodp(10),
+    marginBottom: pxTodp(10)
+  },
   otherOne: {
     borderBottomWidth: pxTodp(1),
     borderBottomColor: 'gray',
   },
   cityNameSym: {
     backgroundColor: '#eeeeee',
-    paddingBottom: pxTodp(2),
-    paddingTop: pxTodp(2),
+    paddingBottom: pxTodp(3),
+    paddingTop: pxTodp(3),
+    paddingLeft: pxTodp(30)
+  },
+  cityNameSymHot: {
+    backgroundColor: '#eeeeee',
+    paddingBottom: pxTodp(8),
+    paddingTop: pxTodp(8),
     paddingLeft: pxTodp(30)
   }
 })
