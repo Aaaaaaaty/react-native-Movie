@@ -24,7 +24,7 @@ export default class FilmCityList extends Component {
     // LayoutAnimation.linear();
     let config = {
       duration: 200,   //持续时间
-      create: {   // 视图创建
+      create: {  // 视图创建
          type: LayoutAnimation.Types.linear,
          property: LayoutAnimation.Properties.opacity,
       },
@@ -133,6 +133,8 @@ export default class FilmCityList extends Component {
     console.log(e.target);
   }
   renderRow(rowData,sectionID,rowID,highlightRow) {
+    let { navigation } = this.props
+    console.log('navigation', navigation);
       if(sectionID == '搜索') {
         return (
           <View style={ {flexDirection: 'row', justifyContent: 'space-between',backgroundColor: '#C0C0C0', alignItems: 'center'}}>
@@ -148,7 +150,7 @@ export default class FilmCityList extends Component {
               </KeyboardAvoidingView>
             </View>
             <TouchableOpacity style={{flex: 1}} >
-              <Text onPress={ this.inputCancel.bind(this) } style={styles.inputCancel}>取消</Text>
+              <Text onPress={ this.inputCancel.bind(this) } style={styles.inputCancel} onPress = { () => { navigation.goBack()} }>取消</Text>
             </TouchableOpacity>
           </View>
         )
@@ -156,7 +158,7 @@ export default class FilmCityList extends Component {
       if(sectionID == '热门城市') {
         let hotCity = rowData.map((item, index) => {
           return (
-              <Text key={ 'hotCity' + index } style={ styles.rowItemTextHot }>{item.cityName}</Text>
+              <Text key={ 'hotCity' + index } style={ styles.rowItemTextHot } onPress = { () => { navigation.goBack()} }>{item.cityName}</Text>
           )
         })
         return (
@@ -170,7 +172,7 @@ export default class FilmCityList extends Component {
         return (
             <View
                 style={styles.cityName}>
-                <Text style={styles.rowItemText}>{rowData.cityName}</Text>
+                <Text style={styles.rowItemText} onPress = { () => { navigation.goBack()} }>{rowData.cityName}</Text>
             </View>
         )
       } else {
