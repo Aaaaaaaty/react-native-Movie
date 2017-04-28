@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  AppRegistry,  StyleSheet, Text, View, Dimensions, TouchableOpacity, Image, ScrollView, ListView, TextInput, LayoutAnimation, Button } from 'react-native';
+import {  AppRegistry,  StyleSheet, Text, View, Dimensions, TouchableOpacity, Image, ScrollView, ListView, TextInput, LayoutAnimation, Button, KeyboardAvoidingView } from 'react-native';
 import pxTodp from '../utils/pxTodp'
 // LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
 var screenWidth = Dimensions.get('window').width;
@@ -16,13 +16,24 @@ export default class FilmCityList extends Component {
         listSectionViewY: {},
         inputWidth: pxTodp(700),
         inputJustifyContent: 'center',
-        inputTextAlign: 'center',
-        caretHidden: false
+        caretHidden: false,
     };
   }
   componentWillUpdate() {
     // 创建动画
     // LayoutAnimation.linear();
+    let config = {
+      duration: 200,   //持续时间
+      create: {   // 视图创建
+         type: LayoutAnimation.Types.linear,
+         property: LayoutAnimation.Properties.opacity,
+      },
+      update: { // 视图更新
+         type: LayoutAnimation.Types.linear,
+         springDamping: 0.4
+      },
+    }
+    LayoutAnimation.configureNext(config)
   }
   getHotCity(cityList) {
     let hotCityList = cityList.filter(( item, index) => {
@@ -101,18 +112,6 @@ export default class FilmCityList extends Component {
       return dataObj
   }
   inputOnFocus() {
-    let config = {
-      duration: 300,   //持续时间
-      create: {   // 视图创建
-         type: LayoutAnimation.Types.linear,
-         property: LayoutAnimation.Properties.opacity,
-      },
-      update: { // 视图更新
-         type: LayoutAnimation.Types.linear,
-         springDamping: 0.4
-      },
-    }
-    LayoutAnimation.configureNext(config)
     let ds = new ListView.DataSource({
                 rowHasChanged: (r1, r2) => r1 !== r2,
                 sectionHeaderHasChanged: (s1, s2) => s1 !== s2
@@ -120,26 +119,37 @@ export default class FilmCityList extends Component {
     this.setState({
       inputWidth: pxTodp(600),
       inputJustifyContent: 'flex-start',
-      inputTextAlign: 'left',
       dataSource: ds.cloneWithRowsAndSections(this.getRows()),
-      caretHidden: true
-    }, () => {
-      setTimeout(() => {
-        this.setState({
-          caretHidden: false
-        })
-      }, config.duration)
+
     })
+  }
+  inputCancel() {
+    this.setState({
+      inputWidth: pxTodp(700),
+      inputJustifyContent: 'center',
+    })
+  }
+  inputOnBlur(e) {
+    console.log(e.target);
   }
   renderRow(rowData,sectionID,rowID,highlightRow) {
       if(sectionID == '搜索') {
         return (
-          <View style={ [styles.inputWrapper, {justifyContent: this.state.inputJustifyContent}]}>
-            <TextInput  style={[styles.inputInner, { width: this.state.inputWidth, textAlign: this.state.inputTextAlign, }] }
-                        placeholder="城市名称或首字母"
-                        clearButtonMode="always"
-                        caretHidden={ this.state.caretHidden }
-                        onFocus={ this.inputOnFocus.bind(this) }/>
+          <View style={ {flexDirection: 'row', justifyContent: 'space-between',backgroundColor: '#C0C0C0', alignItems: 'center'}}>
+            <View style={ [styles.inputWrapper, {justifyContent: this.state.inputJustifyContent}]}>
+              <KeyboardAvoidingView behavior={"padding"}>
+                <TextInput  style={[styles.inputInner, { width:this.state.inputWidth}] }
+                            placeholder="城市名称或首字母"
+                            clearButtonMode="while-editing"
+                            keyboardType="default"
+                            caretHidden={ this.state.caretHidden }
+                            onFocus={ this.inputOnFocus.bind(this) }
+                            onBlur={ this.inputOnBlur.bind(this) }/>
+              </KeyboardAvoidingView>
+            </View>
+            <TouchableOpacity style={{flex: 1}} >
+              <Text onPress={ this.inputCancel.bind(this) } style={styles.inputCancel}>取消</Text>
+            </TouchableOpacity>
           </View>
         )
       }
@@ -263,6 +273,11 @@ var styles = StyleSheet.create({
     marginBottom: pxTodp(10),
     fontSize: pxTodp(24),
     color: 'gray'
+  },
+  inputCancel: {
+    color: '#ffffff',
+    textAlign: 'left',
+    fontSize: pxTodp(30)
   },
   listWrapper: {
     position: 'absolute',
