@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  AppRegistry,  StyleSheet, Text, View, Dimensions, TouchableOpacity, Image, ScrollView, ListView, TextInput, LayoutAnimation } from 'react-native';
+import {  AppRegistry,  StyleSheet, Text, View, Dimensions, TouchableOpacity, Image, ScrollView, ListView, TextInput, LayoutAnimation, Button } from 'react-native';
 import pxTodp from '../utils/pxTodp'
 // LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
 var screenWidth = Dimensions.get('window').width;
@@ -14,11 +14,13 @@ export default class FilmCityList extends Component {
     this.state = {
         dataSource: ds.cloneWithRowsAndSections(this.getRows()),
         listSectionViewY: {},
-        inputWidth: pxTodp(600),
-        inputJustifyContent: 'center'
+        inputWidth: pxTodp(700),
+        inputJustifyContent: 'center',
+        inputTextAlign: 'center',
+        caretHidden: false
     };
   }
-  componentWillMount() {
+  componentWillUpdate() {
     // 创建动画
     // LayoutAnimation.linear();
   }
@@ -99,32 +101,44 @@ export default class FilmCityList extends Component {
       return dataObj
   }
   inputOnFocus() {
-    // LayoutAnimation.linear()
     let config = {
-      duration: 700,   //持续时间
+      duration: 300,   //持续时间
       create: {   // 视图创建
-        type: LayoutAnimation.Types.linear,
+         type: LayoutAnimation.Types.linear,
+         property: LayoutAnimation.Properties.opacity,
       },
       update: { // 视图更新
-        type: LayoutAnimation.Types.spring,
-        springDamping: 0.4
+         type: LayoutAnimation.Types.linear,
+         springDamping: 0.4
       },
     }
     LayoutAnimation.configureNext(config)
+    let ds = new ListView.DataSource({
+                rowHasChanged: (r1, r2) => r1 !== r2,
+                sectionHeaderHasChanged: (s1, s2) => s1 !== s2
+            });
     this.setState({
-      inputWidth: pxTodp(300),
-      inputJustifyContent: 'flex-start'
-    },() => {
-      console.log(this.state.inputWidth);
-      // LayoutAnimation.linear();
+      inputWidth: pxTodp(600),
+      inputJustifyContent: 'flex-start',
+      inputTextAlign: 'left',
+      dataSource: ds.cloneWithRowsAndSections(this.getRows()),
+      caretHidden: true
+    }, () => {
+      setTimeout(() => {
+        this.setState({
+          caretHidden: false
+        })
+      }, config.duration)
     })
   }
   renderRow(rowData,sectionID,rowID,highlightRow) {
       if(sectionID == '搜索') {
         return (
-          <View style={ [styles.inputWrapper, {justifyContent: this.state.inputJustifyContent}] }>
-            <TextInput  style={[styles.inputInner, { width: this.state.inputWidth }] }
+          <View style={ [styles.inputWrapper, {justifyContent: this.state.inputJustifyContent}]}>
+            <TextInput  style={[styles.inputInner, { width: this.state.inputWidth, textAlign: this.state.inputTextAlign, }] }
                         placeholder="城市名称或首字母"
+                        clearButtonMode="always"
+                        caretHidden={ this.state.caretHidden }
                         onFocus={ this.inputOnFocus.bind(this) }/>
           </View>
         )
@@ -236,7 +250,8 @@ var styles = StyleSheet.create({
     backgroundColor: '#C0C0C0',
     flexDirection: 'row',
     // justifyContent: 'center',
-    // marginLeft: pxTodp(40)
+    paddingLeft: pxTodp(25),
+    paddingRight: pxTodp(25)
   },
   inputInner: {
     height: pxTodp(50),
@@ -246,7 +261,6 @@ var styles = StyleSheet.create({
     borderRadius: pxTodp(10),
     marginTop: pxTodp(10),
     marginBottom: pxTodp(10),
-    textAlign: 'center',
     fontSize: pxTodp(24),
     color: 'gray'
   },
