@@ -163,7 +163,7 @@ export default class FilmCityList extends Component {
             }
           }) //action 暂不知怎么取值
           return (
-              <Text key={ 'hotCity' + index } style={ styles.rowItemTextHot } onPress = { () => { navigation.dispatch(NavigationActions.back({params: {name: item.cityName}})) } }>{item.cityName}</Text>
+              <Text key={ 'hotCity' + index } style={ styles.rowItemTextHot } onPress = { () => { navigation.dispatch(NavigationActions.back({params: {name: rowData.cityName}})) } }>{item.cityName}</Text>
           )
         })
         return (
