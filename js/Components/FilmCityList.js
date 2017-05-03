@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {  AppRegistry,  StyleSheet, Text, View, Dimensions, TouchableOpacity, Image, ScrollView, ListView, TextInput, LayoutAnimation, Button, KeyboardAvoidingView } from 'react-native';
 import pxTodp from '../utils/pxTodp'
+import { NavigationActions } from 'react-navigation'
 // LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
 var screenWidth = Dimensions.get('window').width;
 this.isHeaderShow = true
@@ -130,11 +131,9 @@ export default class FilmCityList extends Component {
     })
   }
   inputOnBlur(e) {
-    console.log(e.target);
   }
   renderRow(rowData,sectionID,rowID,highlightRow) {
     let { navigation } = this.props
-    console.log('navigation', navigation);
       if(sectionID == '搜索') {
         return (
           <View style={ {flexDirection: 'row', justifyContent: 'space-between',backgroundColor: '#C0C0C0', alignItems: 'center'}}>
@@ -150,15 +149,21 @@ export default class FilmCityList extends Component {
               </KeyboardAvoidingView>
             </View>
             <TouchableOpacity style={{flex: 1}} >
-              <Text onPress={ this.inputCancel.bind(this) } style={styles.inputCancel} onPress = { () => { navigation.goBack()} }>取消</Text>
+              <Text onPress={ this.inputCancel.bind(this) } style={styles.inputCancel}>取消</Text>
             </TouchableOpacity>
           </View>
         )
       }
       if(sectionID == '热门城市') {
         let hotCity = rowData.map((item, index) => {
+          let backAction = NavigationActions.back({
+            routeName: 'FilmCinemaFromCity',
+            params: {
+              title: item.cityName
+            }
+          }) //action 暂不知怎么取值
           return (
-              <Text key={ 'hotCity' + index } style={ styles.rowItemTextHot } onPress = { () => { navigation.goBack()} }>{item.cityName}</Text>
+              <Text key={ 'hotCity' + index } style={ styles.rowItemTextHot } onPress = { () => { navigation.dispatch(NavigationActions.back({params: {name: item.cityName}})) } }>{item.cityName}</Text>
           )
         })
         return (
@@ -172,13 +177,13 @@ export default class FilmCityList extends Component {
         return (
             <View
                 style={styles.cityName}>
-                <Text style={styles.rowItemText} onPress = { () => { navigation.goBack()} }>{rowData.cityName}</Text>
+                <Text style={styles.rowItemText} onPress = { () => { navigation.dispatch(NavigationActions.back({params: {name: rowData.cityName}})) } }>{rowData.cityName}</Text>
             </View>
         )
       } else {
         return (
             <View style={[ styles.cityName, styles.otherOne ]}>
-                <Text style={styles.rowItemText}>{rowData.cityName}</Text>
+                <Text style={styles.rowItemText} onPress = { () => { navigation.dispatch(NavigationActions.back({params: {name: rowData.cityName}})) } }>{rowData.cityName}</Text>
             </View>
         )
       }

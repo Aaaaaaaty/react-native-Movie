@@ -13,12 +13,24 @@ export default class FilmCinemaFromCity extends Component {
     )
   }
 }
-FilmCinemaFromCity.navigationOptions = {
-  headerTintColor: 'white',
-  title: '影院',
-  headerStyle: {
-    backgroundColor: '#fe4b37'
-  },
+FilmCinemaFromCity.navigationOptions = props => {
+  let { navigation } = props
+  const {state, setParams, screen} = navigation;
+  const {params} = state;
+  console.log('title', state);
+  return {
+    headerTintColor: 'white',
+    title: '影院',
+    headerStyle: {
+      backgroundColor: '#fe4b37'
+    },
+    headerLeft: (
+      <Button
+        title={ 'Edit' }
+        onPress = { () => { navigation.navigate('FilmCityList')} }
+      />
+    ),
+  }
 }
 var styles = StyleSheet.create({
 })

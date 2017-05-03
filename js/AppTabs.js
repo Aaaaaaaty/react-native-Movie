@@ -10,14 +10,15 @@ import FilmCinemaList from './Container/FilmCinemaList';
 import FilmMe from './Container/FilmMe';
 // import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { TabNavigator, } from 'react-navigation';
+import { TabNavigator, StackNavigator } from 'react-navigation';
 
 const AppTabs = TabNavigator({
     Home: {
-        screen: FilmList,
+      screen: FilmList,
     },
     FilmCinemaList: {
       screen: FilmCinemaList,
+      path: 'cart',
     },
     FilmGoodsList: {
         screen: FilmGoodsList,
@@ -26,4 +27,5 @@ const AppTabs = TabNavigator({
         screen: FilmMe,
     },
 })
-export default AppTabs;
+
+export default AppTabs

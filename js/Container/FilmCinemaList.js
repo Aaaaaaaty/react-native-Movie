@@ -96,7 +96,7 @@ const FilmCinemaList = StackNavigator({
 }, {
   headerMode: 'screen',
   mode: 'modal',
-  title: '影院'
+  title: '影院',
 })
 FilmCinemaList.navigationOptions = {
   tabBarLabel: '影院',
