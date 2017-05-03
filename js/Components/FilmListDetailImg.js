@@ -7,15 +7,18 @@ import {
 	StyleSheet,
 	Image,
 	ScrollView,
-	ListView
+	ListView,
+	Dimensions
 } from 'react-native';
 import pxTodp from '../utils/pxTodp'
 
 export default class FilmListDetailImg extends Component {
 	constructor(props) {
 		super(props);
-
-		this.state = {};
+		// let ScreenHeight = Dimensions.get('window').height
+		// let sliderDownDistance = ScreenHeight
+		this.state = {
+		};
 	}
 	render() {
 		let FilmListDetailImg = [

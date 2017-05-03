@@ -15,8 +15,11 @@ import {
 	Image,
 	Text
 } from "react-native"
+import pxTodp from '../utils/pxTodp'
 
+import FilmListDetailMsg from '../Components/FilmListDetailMsg'
 import FilmListDetailImg from '../Components/FilmListDetailImg'
+
 
 class FilmListDetail extends Component {
 	constructor(props) {
@@ -27,6 +30,7 @@ class FilmListDetail extends Component {
 	render() {
 		return (
 			<View style = { styles.FilmListsDetailMain }>
+				<FilmListDetailMsg />
 				<FilmListDetailImg />
 			</View>
 		)
@@ -36,6 +40,9 @@ class FilmListDetail extends Component {
 const styles = StyleSheet.create({
 	FilmListsDetailMain: {
 		flex: 1,
+		position: 'relative'
+	},
+	FilmListDetailMsg: {
 	}
 })
 
