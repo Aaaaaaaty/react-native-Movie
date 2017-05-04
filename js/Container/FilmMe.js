@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { mapStateToProps, mapDispatchToProps } from '../Redux/Store/Store'
 import { connect, Provider } from 'react-redux'
-import { StyleSheet, View, Image, Text } from "react-native"
+import { StyleSheet, View, Image, Text, WebView } from "react-native"
 
 class FilmMe extends Component {
 	static navigationOptions = {
@@ -18,7 +18,8 @@ class FilmMe extends Component {
 	render() {
 			return (
 				<View style = { {flex: 1} }>
-					<Text>123333</Text>
+					<WebView
+						source={{uri: 'https://www.baidu.com'}}/>
 				</View>
 			)
 		}
