@@ -18,9 +18,20 @@ export default class FilmListDetailImg extends Component {
 		// let ScreenHeight = Dimensions.get('window').height
 		// let sliderDownDistance = ScreenHeight
 		this.state = {
+			sliderBackImgY: 0
 		};
+
+	}
+	componentWillReceiveProps () {
+		let { sliderBackImgY } = this.props
+		this.setState({
+			sliderBackImgY: sliderBackImgY
+		})
+		_scrollView.scrollTo({y: sliderBackImgY})
 	}
 	render() {
+		let { sliderBackImgY } = this.state
+		console.log('sliderBackImgY', sliderBackImgY)
 		let FilmListDetailImg = [
 					{
 						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/47847/20160513161727-1920051904.jpg/0",
@@ -132,7 +143,7 @@ export default class FilmListDetailImg extends Component {
 			}
 		})
 		return (
-			<ScrollView>
+			<ScrollView ref={(scrollView) => { _scrollView = scrollView; }} bounces = {false}>
 				<View style = { styles.FilsListDetailImgWall }>
 					<View style = { styles.header }>{FilmListDetailImgContent[0]}</View>
 					<View style = { styles.middleLeft }>{FilmListDetailImgContent[1]}</View>

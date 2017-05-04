@@ -31,7 +31,6 @@ export default class FilmListDetailImg extends Component {
 	  	ScreenHeight: ScreenHeight,
 	  	sliderDownDistance: sliderDownDistance,
 	  	scrollY : 0,
-	  	marginTopForText: 0
 	  }
 	}
 	componentDidMount() {
@@ -107,12 +106,9 @@ export default class FilmListDetailImg extends Component {
 	onAnimationEnd (e) {
 		let offSetX = e.nativeEvent.contentOffset.x;
 		let offSetY = e.nativeEvent.contentOffset.y;
-		this.setState({
-			marginTopForText : -offSetY
-		})
 	}
 	render () {
-		let { arrowDirection, arrowDirectionForWord, ScreenWidth, ScreenHeight,sliderDownDistance, scrollY, marginTopForText} = this.state
+		let { arrowDirection, arrowDirectionForWord, ScreenWidth, ScreenHeight,sliderDownDistance, scrollY} = this.state
 		console.log('scrollY', scrollY)
 		let obj = {
 			"name": "从你的全世界路过",
@@ -289,7 +285,7 @@ export default class FilmListDetailImg extends Component {
 				<TouchableHighlight style = { [styles.FilmListDetailImgContainerSlideBar]} onPress = { this.slideDownOrUp.bind(this)} >
 					<Image source = { arrow } style = { styles.iconArrowdown }/>
 				</TouchableHighlight>
-				<View style = { [styles.FilmListDetailImgContainerMain, {marginTop: marginTopForText}] } >
+				<View style = { [styles.FilmListDetailImgContainerMain] } >
 					<View style = { styles.FilmAbstract}>
 						<Image style = { styles.FilmAbstractLeft} source = { {uri: obj.posterUrl} }/>
 						<View style = { styles.FilmAbstractRight}>
@@ -301,7 +297,7 @@ export default class FilmListDetailImg extends Component {
 					</View>
 					<Animated.Text style = { [styles.FilmIntroduction, {height: wordHeight}] }>    {obj.summary}</Animated.Text>
 					<View>
-						<TouchableHighlight style = { styles.FilmIntroductionWordBar} onPress = { this.slideDownOrUpForWord.bind(this)} >
+						<TouchableHighlight style = { styles.FilmIntroductionWordBar} >
 							<Image source = { arrowForWord } style = { styles.iconArrowdown }/>
 						</TouchableHighlight>
 						<View style = { styles.FilmPersonIntro}>
