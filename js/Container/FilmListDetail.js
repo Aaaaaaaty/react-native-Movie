@@ -25,13 +25,21 @@ class FilmListDetail extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {};
+		this.state = {
+			sliderBackImgY: 0
+		};
+	}
+	sliderBackImg () {
+		this.setState({
+			sliderBackImgY: 0
+		})
 	}
 	render() {
+		let { sliderBackImgY } = this.state
 		return (
 			<View style = { styles.FilmListsDetailMain }>
-				<FilmListDetailMsg />
-				<FilmListDetailImg />
+				<FilmListDetailMsg sliderBackImg = { this.sliderBackImg.bind(this)}/>
+				<FilmListDetailImg sliderBackImgY = { sliderBackImgY }/>
 			</View>
 		)
 	}
