@@ -4,7 +4,7 @@ import { connect, Provider } from 'react-redux'
 import { StyleSheet, View, Image, Text, WebView } from "react-native"
 import pxTodp from '../utils/pxTodp'
 import FilmSchemaList from '../Components/FilmSchemaList'
-var ScrollableTabView = require('react-native-scrollable-tab-view');
+import FilmSchemaListImg from '../Components/FilmSchemaListImg'
 class FilmMe extends Component {
 	static navigationOptions = {
     tabBarLabel: '我的',
@@ -223,7 +223,11 @@ class FilmMe extends Component {
 		    }]
 		}
 			return (
-				<FilmSchemaList filmTimeList = { filmTimeList }/>
+				<View style={{flex:1}}>
+					<FilmSchemaListImg />
+					<FilmSchemaList filmTimeList = { filmTimeList }/>
+				</View>
+
 			)
 		}
 	}

@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import { mapStateToProps, mapDispatchToProps } from '../Redux/Store/Store'
-import { connect, Provider } from 'react-redux'
 import { StyleSheet, View, Image, Text, WebView, TouchableOpacity, ScrollView } from "react-native"
 import pxTodp from '../utils/pxTodp'
 import ScrollableTabView, { ScrollableTabBar, } from 'react-native-scrollable-tab-view';
-class FilmMe extends Component {
+class FilmSchemaList extends Component {
 	static navigationOptions = {
     tabBarLabel: '我的',
   }
@@ -130,4 +128,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilmMe)
+export default FilmSchemaList
