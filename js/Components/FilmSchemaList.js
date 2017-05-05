@@ -80,7 +80,8 @@ class FilmMe extends Component {
 																									tabsContainerStyle={{borderTopColor: 'gray', borderTopWidth: pxTodp(1), width: 'auto'}}
 																									tabStyle={{width: pxTodp(187.5), padding: 0}}
 																									underlineStyle={{backgroundColor: '#fe4b37', height: pxTodp(3)}}/>}
-														 tabBarActiveTextColor={'#fe4b37'}>
+														 tabBarActiveTextColor={'#fe4b37'}
+														 tabBarTextStyle={{fontWeight: 'normal'}}>
 						{ filmTimeListItem }
 					</ScrollableTabView>
 				</View>
@@ -94,7 +95,7 @@ const styles = StyleSheet.create({
 		// backgroundColor:'yellow',
 		height: pxTodp(500),
 		position:'absolute',
-		bottom: pxTodp(0)
+		bottom: pxTodp(0),
 	},
 	wrapper: {
 		flexDirection: 'row',
