@@ -120,6 +120,106 @@ class FilmMe extends Component {
 		      "canBuy": true,
 		      "language": "国语",
 		      "dimensional": 0
+		    },{
+		      "hallName": "0号厅",
+		      "duration": 100,
+		      "releaseTime": "2016-01-27",
+		      "showStartTime": "2016-01-23 18:30:00",
+		      "standardPrice": 60,
+		      "salePrice": 26,
+		      "canBuy": true,
+		      "language": "国语",
+		      "dimensional": 0
+		    },{
+		      "hallName": "0号厅",
+		      "duration": 100,
+		      "releaseTime": "2016-01-27",
+		      "showStartTime": "2016-01-23 18:30:00",
+		      "standardPrice": 60,
+		      "salePrice": 26,
+		      "canBuy": true,
+		      "language": "国语",
+		      "dimensional": 0
+		    },{
+		      "hallName": "0号厅",
+		      "duration": 100,
+		      "releaseTime": "2016-01-28",
+		      "showStartTime": "2016-01-23 18:30:00",
+		      "standardPrice": 60,
+		      "salePrice": 26,
+		      "canBuy": true,
+		      "language": "国语",
+		      "dimensional": 0
+		    },{
+		      "hallName": "0号厅",
+		      "duration": 100,
+		      "releaseTime": "2016-01-28",
+		      "showStartTime": "2016-01-23 18:30:00",
+		      "standardPrice": 60,
+		      "salePrice": 26,
+		      "canBuy": true,
+		      "language": "国语",
+		      "dimensional": 0
+		    },{
+		      "hallName": "0号厅",
+		      "duration": 100,
+		      "releaseTime": "2016-01-28",
+		      "showStartTime": "2016-01-23 18:30:00",
+		      "standardPrice": 60,
+		      "salePrice": 26,
+		      "canBuy": true,
+		      "language": "国语",
+		      "dimensional": 0
+		    },{
+		      "hallName": "0号厅",
+		      "duration": 100,
+		      "releaseTime": "2016-01-28",
+		      "showStartTime": "2016-01-23 18:30:00",
+		      "standardPrice": 60,
+		      "salePrice": 26,
+		      "canBuy": true,
+		      "language": "国语",
+		      "dimensional": 0
+		    },{
+		      "hallName": "0号厅",
+		      "duration": 100,
+		      "releaseTime": "2016-01-28",
+		      "showStartTime": "2016-01-23 18:30:00",
+		      "standardPrice": 60,
+		      "salePrice": 26,
+		      "canBuy": true,
+		      "language": "国语",
+		      "dimensional": 0
+		    },{
+		      "hallName": "0号厅",
+		      "duration": 100,
+		      "releaseTime": "2016-01-29",
+		      "showStartTime": "2016-01-23 18:30:00",
+		      "standardPrice": 60,
+		      "salePrice": 26,
+		      "canBuy": true,
+		      "language": "国语",
+		      "dimensional": 0
+		    },{
+		      "hallName": "0号厅",
+		      "duration": 100,
+		      "releaseTime": "2016-01-29",
+		      "showStartTime": "2016-01-23 18:30:00",
+		      "standardPrice": 60,
+		      "salePrice": 26,
+		      "canBuy": true,
+		      "language": "国语",
+		      "dimensional": 0
+		    },{
+		      "hallName": "0号厅",
+		      "duration": 100,
+		      "releaseTime": "2016-01-29",
+		      "showStartTime": "2016-01-23 18:30:00",
+		      "standardPrice": 60,
+		      "salePrice": 26,
+		      "canBuy": true,
+		      "language": "国语",
+		      "dimensional": 0
 		    }]
 		}
 			return (

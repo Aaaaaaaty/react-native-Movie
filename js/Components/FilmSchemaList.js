@@ -3,8 +3,7 @@ import { mapStateToProps, mapDispatchToProps } from '../Redux/Store/Store'
 import { connect, Provider } from 'react-redux'
 import { StyleSheet, View, Image, Text, WebView, TouchableOpacity, ScrollView } from "react-native"
 import pxTodp from '../utils/pxTodp'
-
-var ScrollableTabView = require('react-native-scrollable-tab-view');
+import ScrollableTabView, { ScrollableTabBar, } from 'react-native-scrollable-tab-view';
 class FilmMe extends Component {
 	static navigationOptions = {
     tabBarLabel: '我的',
@@ -72,12 +71,16 @@ class FilmMe extends Component {
         )
       })
       return (
-        <ScrollView key={ 'filmTimeListItem' + index }>{ oneDayList }</ScrollView>
+        <ScrollView key={ 'filmTimeListItem' + index } tabLabel={item.split('-')[1].concat('-' + item.split('-')[2])}>{ oneDayList }</ScrollView>
       )
     })
 			return (
         <View style={ styles.schemaView }>
-					<ScrollableTabView >
+					<ScrollableTabView renderTabBar={() => <ScrollableTabBar
+																									tabsContainerStyle={{borderTopColor: 'gray', borderTopWidth: pxTodp(1), width: 'auto'}}
+																									tabStyle={{width: pxTodp(187.5), padding: 0}}
+																									underlineStyle={{backgroundColor: '#fe4b37', height: pxTodp(3)}}/>}
+														 tabBarActiveTextColor={'#fe4b37'}>
 						{ filmTimeListItem }
 					</ScrollableTabView>
 				</View>
