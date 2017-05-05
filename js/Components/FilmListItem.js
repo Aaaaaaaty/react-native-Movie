@@ -11,9 +11,17 @@ import {
   Dimensions,
   ScrollView,
   Animated,
-  ListView
+  ListView,
+  TouchableHighlight,
+  TouchableOpacity
 } from "react-native"
+import {
+  StackNavigator,
+} from 'react-navigation';
 import pxTodp from '../utils/pxTodp'
+import FilmListDetail from '../Container/FilmListDetail'
+
+
 
 export default class filmListItem extends Component {
   constructor(props) {
@@ -43,6 +51,7 @@ export default class filmListItem extends Component {
     })
   }
   render() {
+    let { navigation } = this.props
     let {
       filmList
     } = this.props
@@ -72,20 +81,23 @@ export default class filmListItem extends Component {
         )
       })()
       return (
-        <View key={ 'filmListItem' + index }
-              style={ styles.filmListItem }>
-          <View>
-            <Image  source={ posterUrl }
-                    style={styles.image}/>
+        <View key={ 'filmListItem' + index } style = {styles.mainContent}>
+          <TouchableOpacity onPress = { () => {navigation.navigate('FilmListDetail')}} style={ styles.filmListItem }>
+            <View style = {{flexDirection: 'row'}}>
+              <View>
+                <Image  source={ posterUrl }
+                        style={styles.image}/>
+              </View>
+              <View style={ styles.message }>
+                <Text style={ styles.name } numberOfLines={ 1 }>{ item.name }</Text>
+                <View style={ styles.messageAvtor }>
+                  <View><Text style={ styles.subColor }>{ item.phrase }</Text></View>
+                  <View><Text numberOfLines={ 1 } style={ styles.subColor }>{ item.starring }</Text></View>
+                </View>
+                 { filmTypeListItem }
+              </View>
             </View>
-          <View style={ styles.message }>
-            <Text style={ styles.name } numberOfLines={ 1 }>{ item.name }</Text>
-            <View style={ styles.messageAvtor }>
-              <View><Text style={ styles.subColor }>{ item.phrase }</Text></View>
-              <View><Text numberOfLines={ 1 } style={ styles.subColor }>{ item.starring }</Text></View>
-            </View>
-             { filmTypeListItem }
-          </View>
+          </TouchableOpacity>
           <View style={ styles.btnWrapper }>
             <Text style={ [ styles.btn, styles.btnBuyText ] }>购票</Text>
           </View>
@@ -110,10 +122,14 @@ const styles = StyleSheet.create({
     marginLeft: pxTodp(30),
     marginRight: pxTodp(30),
   },
+  mainContent: {
+    flexDirection: 'row',
+    flex: 1
+  },
   filmListItem: {
     marginBottom: pxTodp(50),
-    flexDirection: 'row',
     justifyContent: 'space-between',
+    flex: 1
   },
   image: {
     width: pxTodp(150),
@@ -129,8 +145,9 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   btnWrapper: {
-    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
+    width: pxTodp(150)
   },
   btn: {
     paddingTop: pxTodp(10),

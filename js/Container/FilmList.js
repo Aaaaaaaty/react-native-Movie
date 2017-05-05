@@ -18,6 +18,10 @@ import {
 } from "react-native"
 import FilmListItem from '../Components/FilmListItem'
 import FilmSwiper from '../Components/FilmSwiper'
+import FilmListDetail from './FilmListDetail'
+import {
+  StackNavigator,
+} from 'react-navigation';
 
 class FilmList extends Component {
   static navigationOptions = {
@@ -27,8 +31,6 @@ class FilmList extends Component {
     super(props);
   }
   componentWillMount() {
-    // let { getFilmList } = this.props
-    // getFilmList('../data/filmList.json', '')
   }
   render() {
     let filmList = {
@@ -1191,7 +1193,7 @@ class FilmList extends Component {
     ]
     return (<ScrollView style={ styles.wrapper }>
                 <FilmSwiper filmListScrollViewImg={ filmListScrollViewImg }/>
-                <FilmListItem filmList={ filmList }/>
+                <FilmListItem navigation = {this.props.navigation} filmList={ filmList }/>
               </ScrollView>)
   }
 

@@ -4,9 +4,10 @@ import { Provider } from 'react-redux';
 import React from 'react';
 import { Navigator } from 'react-native';
 import store from './Redux/Store/Store';
-import FilmList from './Container/FilmList';
+import FilmListShow from './Container/FilmListShow';
 import FilmGoodsList from './Container/FilmGoodsList';
 import FilmCinemaList from './Container/FilmCinemaList';
+import FilmListDetail from './Container/FilmListDetail';
 import FilmMe from './Container/FilmMe';
 // import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
@@ -14,7 +15,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation';
 
 const AppTabs = TabNavigator({
     Home: {
-      screen: FilmList,
+      screen: FilmListShow,
     },
     FilmCinemaList: {
       screen: FilmCinemaList,
@@ -25,7 +26,7 @@ const AppTabs = TabNavigator({
     },
     FilmMe: {
         screen: FilmMe,
-    },
+    }
 })
 
 export default AppTabs

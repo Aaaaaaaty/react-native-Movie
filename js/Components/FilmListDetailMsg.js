@@ -319,7 +319,7 @@ export default class FilmListDetailImg extends Component {
 const styles = StyleSheet.create({
 	FilmListDetailImgContainer: {
 	    position: 'absolute',
-		zIndex: 999,
+		zIndex: 9,
 		left: 0,
 		right:0,
 		bottom:0,
