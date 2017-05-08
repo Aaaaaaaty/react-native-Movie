@@ -13,10 +13,12 @@ import {
 	StyleSheet,
 	View,
 	Image,
-	Text
+	Text,
+	TouchableOpacity
 } from "react-native"
 import FilmGoodsListItem from '../Components/FilmGoodsListItem'
 import FilmGoodsClear from '../Components/FilmGoodsClear'
+import pxTodp from '../utils/pxTodp'
 
 class FilmGoodsList extends Component {
 	static navigationOptions = {
@@ -111,10 +113,27 @@ class FilmGoodsList extends Component {
 	}
 }
 
+FilmGoodsList.navigationOptions = props => {
+	let { navigation } = props
+	return {
+		tabBarLabel: '卖品',
+		headerTintColor: 'white',
+	    title:(
+	    	<TouchableOpacity onPress = {() => {navigation.navigate('other')}} style = {{width: pxTodp(500),height: pxTodp(40), alignItems: 'center'}}>
+		    	<Text style = {{color: 'white', fontSize: pxTodp(30), lineHeight: pxTodp(40)}}>完美世界影城 （北京四道口店）  ></Text>
+	    	</TouchableOpacity>
+	    ),
+	    headerStyle: {
+	      backgroundColor: '#fe4b37',
+	      width: '100%',
+	      height: pxTodp(184),
+	    },
+	}
+}
+
 const styles = StyleSheet.create({
 	wrapper: {
 		flex: 1,
-		backgroundColor: '#d7d7d7'
 	}
 })
 
