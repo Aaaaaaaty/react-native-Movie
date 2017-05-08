@@ -23,13 +23,13 @@ export default class FilmListDetailImg extends Component {
 	  this.animatedValueWord = new Animated.Value(0)
 	  let ScreenWidth = Dimensions.get('window').width
 	  let ScreenHeight = Dimensions.get('window').height
-	  let sliderDownDistance = ScreenHeight - pxTodp(150)
+	  let sliderDownDistance = ScreenHeight
 	  this.state = {
 	  	arrowDirection: 'down',
 	  	arrowDirectionForWord: 'down',
 	  	ScreenWidth: ScreenWidth,
 	  	ScreenHeight: ScreenHeight,
-	  	sliderDownDistance: sliderDownDistance,
+	  	sliderDownDistance: sliderDownDistance - pxTodp(60),
 	  	scrollY : 0,
 	  }
 	}
