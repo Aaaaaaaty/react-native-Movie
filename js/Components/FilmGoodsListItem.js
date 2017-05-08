@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
 	filmGoodsListMain: {
 		flex: 1,
 		flexDirection: 'column',
-		// backgroundColor: '#d7d7d7',
 		marginTop: pxTodp(30),
 		marginLeft: pxTodp(30),
 		marginRight: pxTodp(30),
@@ -101,7 +100,7 @@ const styles = StyleSheet.create({
 		shadowColor: '#d7d7d7',
     	shadowOffset: {
         width: 0,
-        height: 3
+        height: 10
     },
     shadowRadius: 5,
     shadowOpacity: 1.0

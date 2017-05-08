@@ -37,9 +37,6 @@ const AppStacks = StackNavigator({
   },
   FilmListDetail: {
   	screen: FilmListDetail
-  },
-  other: {
-  	screen: other
   }
 }, {
   headerMode: 'none'
