@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import { mapStateToProps, mapDispatchToProps } from '../Redux/Store/Store'
 import { connect, Provider } from 'react-redux'
-import { StyleSheet, View, Image, Text, WebView } from "react-native"
+import { StyleSheet, View, Image, Text, WebView, TouchableOpacity,ScrollView } from "react-native"
 import pxTodp from '../utils/pxTodp'
 import FilmSchemaList from '../Components/FilmSchemaList'
 import FilmSchemaListImg from '../Components/FilmSchemaListImg'
+import FilmSchemaInfo from '../Components/FilmSchemaInfo'
 class FilmMe extends Component {
-	static navigationOptions = {
-    tabBarLabel: '我的',
-  }
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -224,7 +222,7 @@ class FilmMe extends Component {
 		}
 			return (
 				<View style={{flex:1}}>
-					<FilmSchemaListImg />
+					<FilmSchemaInfo/>
 					<FilmSchemaList filmTimeList = { filmTimeList }/>
 				</View>
 
@@ -232,6 +230,25 @@ class FilmMe extends Component {
 		}
 	}
 
+FilmMe.navigationOptions = props => {
+	let { navigation } = props
+	return {
+		title: '选择场次',
+		tabBarLabel: '我的',
+		headerTintColor: 'white',
+		headerStyle: {
+			backgroundColor: '#fe4b37',
+			height: pxTodp(90)
+		},
+		headerLeft: (
+			<TouchableOpacity>
+				<Text style = {{color: 'white'}}>
+				  《 
+				</Text>
+			</TouchableOpacity>
+		)
+	}
+}
 
 const styles = StyleSheet.create({
 

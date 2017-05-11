@@ -3,7 +3,7 @@ import FilmList from './FilmList';
 import FilmGoodsListShow from './FilmGoodsListShow';
 import FilmCinemaList from './FilmCinemaList';
 import FilmListDetail from './FilmListDetail';
-import FilmMe from './FilmMe'
+import FilmMeShow from './FilmMeShow'
 const FilmTab = TabNavigator({
     Home: {
       screen: FilmList,
@@ -15,8 +15,8 @@ const FilmTab = TabNavigator({
     FilmGoodsListShow: {
         screen: FilmGoodsListShow,
     },
-    FilmMe: {
-        screen: FilmMe,
+    FilmMeShow: {
+        screen: FilmMeShow,
     }
 })
 

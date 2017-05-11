@@ -91,7 +91,7 @@ class FilmSchemaList extends Component {
 const styles = StyleSheet.create({
 	schemaView: {
 		// backgroundColor:'yellow',
-		height: pxTodp(500),
+		height: pxTodp(400),
 		position:'absolute',
 		bottom: pxTodp(0),
 	},
