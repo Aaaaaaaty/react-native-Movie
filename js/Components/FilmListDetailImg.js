@@ -34,98 +34,98 @@ export default class FilmListDetailImg extends Component {
 		console.log('sliderBackImgY', sliderBackImgY)
 		let FilmListDetailImg = [
 					{
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/47847/20160513161727-1920051904.jpg/0",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/47847/20160513161727-1920051904.jpg/0",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/47847/20160513161727-1920051904.jpg/0",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/47847/20160513161727-1920051904.jpg/0",
 						"type": 1
 					}, {
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163133-1331815917.jpg/800",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163133-1331815917.jpg/800",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163133-1331815917.jpg/800",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163133-1331815917.jpg/800",
 						"type": 1
 					}, {
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163134-554670575.jpg/800",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163134-554670575.jpg/800",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163134-554670575.jpg/800",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163134-554670575.jpg/800",
 						"type": 1
 					}, {
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163136-585591616.jpg/800",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163136-585591616.jpg/800",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163136-585591616.jpg/800",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163136-585591616.jpg/800",
 						"type": 1
 					}, {
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163137-314906055.jpg/800",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163137-314906055.jpg/800",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163137-314906055.jpg/800",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163137-314906055.jpg/800",
 						"type": 1
 					}, {
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163138-86994765.jpg/800",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163138-86994765.jpg/800",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163138-86994765.jpg/800",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163138-86994765.jpg/800",
 						"type": 1
 					}, {
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163139-959230960.jpg/800",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163139-959230960.jpg/800",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163139-959230960.jpg/800",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163139-959230960.jpg/800",
 						"type": 1
 					}, {
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163127-399518163.jpg/800",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163127-399518163.jpg/800",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163127-399518163.jpg/800",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163127-399518163.jpg/800",
 						"type": 1
 					}, {
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/26117/20160901162927-951017985.jpg/0",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/26117/20160901162927-951017985.jpg/0",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/26117/20160901162927-951017985.jpg/0",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/26117/20160901162927-951017985.jpg/0",
 						"type": 1
 					}, {
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/16430/20160901162938-235968216.jpg/0",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/16430/20160901162938-235968216.jpg/0",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/16430/20160901162938-235968216.jpg/0",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/16430/20160901162938-235968216.jpg/0",
 						"type": 1
 					}, {
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/23785/20160901162951-613913579.jpg/0",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/23785/20160901162951-613913579.jpg/0",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/23785/20160901162951-613913579.jpg/0",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/23785/20160901162951-613913579.jpg/0",
 						"type": 1
 					}, {
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/32051/20160504092223-1549936775.jpg/0",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/32051/20160504092223-1549936775.jpg/0",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/32051/20160504092223-1549936775.jpg/0",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/32051/20160504092223-1549936775.jpg/0",
 						"type": 1
 					}, {
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/26117/20160901162927-951017985.jpg/0",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/26117/20160901162927-951017985.jpg/0",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/26117/20160901162927-951017985.jpg/0",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/26117/20160901162927-951017985.jpg/0",
 						"type": 1
 					}, {
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/16430/20160901162938-235968216.jpg/0",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/16430/20160901162938-235968216.jpg/0",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/16430/20160901162938-235968216.jpg/0",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/16430/20160901162938-235968216.jpg/0",
 						"type": 1
 					}, {
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/23785/20160901162951-613913579.jpg/0",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/23785/20160901162951-613913579.jpg/0",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/23785/20160901162951-613913579.jpg/0",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/23785/20160901162951-613913579.jpg/0",
 						"type": 1
 					}, {
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/32051/20160504092223-1549936775.jpg/0",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/32051/20160504092223-1549936775.jpg/0",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/32051/20160504092223-1549936775.jpg/0",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/32051/20160504092223-1549936775.jpg/0",
 						"type": 1
 					}, {
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163135-697399980.jpg/800",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163135-697399980.jpg/800",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163135-697399980.jpg/800",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163135-697399980.jpg/800",
 						"type": 1
 					}, {
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163133-1331815917.jpg/800",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163133-1331815917.jpg/800",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163133-1331815917.jpg/800",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163133-1331815917.jpg/800",
 						"type": 1
 					}, {
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163134-554670575.jpg/800",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163134-554670575.jpg/800",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163134-554670575.jpg/800",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163134-554670575.jpg/800",
 						"type": 1
 					}, {
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163136-585591616.jpg/800",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163136-585591616.jpg/800",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163136-585591616.jpg/800",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163136-585591616.jpg/800",
 						"type": 1
 					}, {
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163136-585591616.jpg/800",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163136-585591616.jpg/800",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163136-585591616.jpg/800",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163136-585591616.jpg/800",
 						"type": 1
 					}, {
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163134-554670575.jpg/800",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163134-554670575.jpg/800",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163134-554670575.jpg/800",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/0/ori-20160901163134-554670575.jpg/800",
 						"type": 1
 					}, {
-						"thumbnailUrl": "http://pic.baike.soso.com/ugc/baikepic2/23785/20160901162951-613913579.jpg/0",
-						"resourceUrl": "http://pic.baike.soso.com/ugc/baikepic2/23785/20160901162951-613913579.jpg/0",
+						"thumbnailUrl": "https://pic.baike.soso.com/ugc/baikepic2/23785/20160901162951-613913579.jpg/0",
+						"resourceUrl": "https://pic.baike.soso.com/ugc/baikepic2/23785/20160901162951-613913579.jpg/0",
 						"type": 1
-					}, 
+					},
 		]
 		let FilmListDetailImgContent = []
 		let FilmListDetailImgContent2 = []
@@ -164,12 +164,12 @@ const styles = StyleSheet.create({
 		flexWrap: 'wrap',
 	},
 	header: {
-		width: '100%', 
+		width: '100%',
 		height:pxTodp(400),
 		margin: pxTodp(3)
 	},
 	middleLeft: {
-		width: pxTodp(370), 
+		width: pxTodp(370),
 		height: pxTodp(340),
 		margin: pxTodp(3)
 	},
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
 		flexDirection:'row',
 		flexWrap: 'wrap',
 		backgroundColor: 'black',
-		
+
 	},
 	commonImg: {
 		width: pxTodp(181),

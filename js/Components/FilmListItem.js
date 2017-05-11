@@ -98,9 +98,9 @@ export default class filmListItem extends Component {
               </View>
             </View>
           </TouchableOpacity>
-          <View style={ styles.btnWrapper }>
+          <TouchableOpacity style={ styles.btnWrapper } onPress = { () => {navigation.navigate('FilmMe')}}>
             <Text style={ [ styles.btn, styles.btnBuyText ] }>购票</Text>
-          </View>
+          </TouchableOpacity>
         </View>
       )
     })
@@ -145,9 +145,9 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   btnWrapper: {
-    alignItems: 'center',
     justifyContent: 'center',
-    width: pxTodp(150)
+    width: pxTodp(150),
+    marginTop: pxTodp(-100),
   },
   btn: {
     paddingTop: pxTodp(10),

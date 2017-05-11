@@ -4,9 +4,9 @@ import FilmMe from './FilmMe'
 import other from './other'
 
 const FilmMeShow = StackNavigator({
-	FilmMe: {
-		screen: FilmMe
-	},
+	// FilmMe: {
+	// 	screen: FilmMe
+	// },
 	other: {
 		screen: other
 	}
