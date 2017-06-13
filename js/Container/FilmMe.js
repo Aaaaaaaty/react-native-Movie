@@ -243,7 +243,7 @@ FilmMe.navigationOptions = props => {
 		headerLeft: (
 			<TouchableOpacity>
 				<Text style = {{color: 'white'}}>
-				  《 
+				  《
 				</Text>
 			</TouchableOpacity>
 		)
