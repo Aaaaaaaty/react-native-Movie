@@ -1,29 +1,87 @@
-import React, {
-	Component
-} from 'react';
-import {
-	View,
-	Text,
-	StyleSheet,
-	Image,
-	ScrollView,
-	ListView,
-	TouchableHighlight,
-	Animated,
-	LayoutAnimation,
-	Dimensions
-} from 'react-native';
+import React, { Component } from 'react'
+import { mapStateToProps, mapDispatchToProps } from '../Redux/Store/Store'
+import { connect, Provider } from 'react-redux'
+import { StyleSheet, View, Image, Text, WebView, TouchableOpacity, ScrollView, Dimensions, Animated } from "react-native"
 import pxTodp from '../utils/pxTodp'
 
-export default class FilmListDetailImg extends Component {
-	constructor (props) {
-		super(props);
-	    this.animatedValue = new Animated.Value(0)
-	    this.animatedValueWord = new Animated.Value(0)
-	    let ScreenWidth = Dimensions.get('window').width
-	    let ScreenHeight = Dimensions.get('window').height
-	    let sliderDownDistance = ScreenHeight - pxTodp(150) - pxTodp(340)
-	    let obj = {
+const screenWidth = Dimensions.get('window').width
+class FilmSchemaInfo extends Component{
+	static defaultProps = {
+	    horizontal: true,
+	    bounces: false,
+	    centerContent: true,
+	    scrollEventThrottle: 16,
+	    //pagingEnabled: true
+	    //contentOffset: {x: -screenWidth/2 + pxTodp(129)}
+	}
+	constructor(props) {
+	  super(props);
+	  let imgLength = 9
+	  let opacityArr = []
+	  let scaleArrX = []
+	  let scaleArrY = []
+	  for(let i=0; i<imgLength; i++){
+	  	opacityArr.push(0)
+	  	scaleArrX.push(new Animated.Value(1))
+	  	scaleArrY.push(new Animated.Value(1))
+	  }
+	  this.state = {
+	  	scrollEnabled: true,
+	  	opacityArr: opacityArr,
+	  	scaleArrX: scaleArrX,
+	  	scaleArrY: scaleArrY
+	  };
+	}
+	distance(e) {
+		let {opacityArr, scaleArrX, scaleArrY} = this.state
+		//this._view.props['children'][1].props['style']
+		let x = e.nativeEvent.contentOffset.x;
+		let indexImg = Math.round(x/(pxTodp(220) + pxTodp(30))) + 1
+		for(let i = 0; i < opacityArr.length; i++){
+			if (i != indexImg) {
+				Animated.timing(
+					scaleArrX[i],
+					{
+						toValue: 1
+					}
+				).start()
+				Animated.timing(
+					scaleArrY[i],
+					{
+						toValue: 1
+					}
+				).start()
+				opacityArr[i] = 0
+			} else if (i == indexImg) {
+				Animated.timing(
+					scaleArrX[i],
+					{
+						toValue: 1.2
+					}
+				).start()
+				Animated.timing(
+					scaleArrY[i],
+					{
+						toValue: 1.24
+					}
+				).start()
+				opacityArr[i] = 1
+			}
+		}
+		this.setState({
+			opacityArr: opacityArr,
+			scaleArrX: scaleArrX,
+			scaleArrY: scaleArrY
+		})
+	}
+	render() {
+		let {opacityArr, scaleArrX, scaleArrY} = this.state
+		let obj = {
+			"place": '完美世界影城（望京店）',
+			"address": '北京市朝阳区东亚望京中心北门',
+			"test1": '停车场',
+			"test2": '情侣厅',
+			"test3": 'VIP厅',
 			"name": "从你的全世界路过",
 		    "filmShortCode": 0,
 		    "releaseTime": "2016-01-23",
@@ -42,6 +100,11 @@ export default class FilmListDetailImg extends Component {
 		    "isImax": true,
 		    "isDmax": false,
 		    "crews": [{
+		      "realName": "",
+		      "roleName": "",
+		      "duty": 2,
+		      "imageUrl": ""
+		      },{
 		      "realName": "张一白",
 		      "roleName": "导演",
 		      "duty": 2,
@@ -81,6 +144,11 @@ export default class FilmListDetailImg extends Component {
 		        "roleName": "燕子",
 		        "duty": 2,
 		        "imageUrl": "http://pic.baike.soso.com/ugc/baikepic2/25056/cut-20160902140904-110357428.jpg/300"
+		      },{
+		        "realName": "",
+		        "roleName": "",
+		        "duty": 2,
+		        "imageUrl": ""
 		    }],
 		    "videoStills": [
 			    {
@@ -165,230 +233,113 @@ export default class FilmListDetailImg extends Component {
 			      "type": 1
 				}
 			]
-	    }
-	    let FilmPersonIntro = []
-	    obj.crews.map((item, index) => {
-			FilmPersonIntro.push(
-				<View key = {index}>
-					<Image source = {{uri: item.imageUrl}} style = {{width: pxTodp(180), height: pxTodp(250), marginRight: pxTodp(1)}}/>
-					<View style = {{width: pxTodp(180), alignItems: 'center', marginTop: pxTodp(20), marginBottom: pxTodp(16)}}>
-						<Text style = {{fontSize: pxTodp(28), color: '#222833'}}>{item.realName}</Text>
-					</View>
-					<View style = {{width: pxTodp(180), alignItems: 'center', marginBottom: pxTodp(32)}}>
-						<Text style = {{fontSize: pxTodp(20), color: '#7d838e'}}>{item.roleName}</Text>
-					</View>
-				</View>
-			)
-        })
-	    this.state = {
-	    	arrowDirection: 'down',
-	  		arrowDirectionForWord: 'down',
-	  		ScreenWidth: ScreenWidth,
-	  		ScreenHeight: ScreenHeight,
-	  		sliderDownDistance: sliderDownDistance,
-	  		scrollY : 0,
-	  		marginTopForText: 0,
-	  		obj: obj,
-	  		FilmPersonIntro: FilmPersonIntro
-	  	}
-	}
-	componentDidMount() {
-		let { ScreenHeight, sliderDownDistance, scrollY } = this.state
-		let distance = (pxTodp(0)/(sliderDownDistance - scrollY))
-		this.animatedValue.setValue(distance)
-		this.animatedValueWord.setValue(0.31)
-	}
-	slideDownOrUp () {
-		let { arrowDirection, sliderDownDistance, scrollY} = this.state
-		let {sliderBackImg} = this.props
-		let distance = ((pxTodp(0))/(sliderDownDistance + scrollY))
-		if (arrowDirection == 'down') {
-			Animated.timing(
-				this.animatedValue,
-				{
-					toValue: (sliderDownDistance / (sliderDownDistance + scrollY))
-				}
-			).start( () => {
-				this.setState({
-					arrowDirection: 'up',
-				})
-			})
 		}
-		if (arrowDirection == 'up') {
-			sliderBackImg()
-			Animated.timing(
-				this.animatedValue,
-				{
-					toValue: distance
-				}
-			).start( () => {
-				this.setState({
-					arrowDirection: 'down',
-				})
-			})
-		}
+		let scrollArr = []
+		obj.crews.map((item, index) => {
+			if (item.imageUrl) {
+				scrollArr.push(
+					<View key = {index}>
+						<View style = {{width:pxTodp(220), height:pxTodp(258), marginRight: pxTodp(30), marginLeft:pxTodp(30) }}>
+							<Animated.Image source = {{uri: item.imageUrl}} style = {{width:pxTodp(220), height:pxTodp(258), transform: [{scaleX:scaleArrX[index]}, {scaleY: scaleArrY[index]}] }}/>
+						</View>
+						<View style = {[styles.movieTitle, {opacity: opacityArr[index], width: pxTodp(220)*scaleArrX[index] }]}> 
+							<Text style = {{color: '#222833',fontSize: pxTodp(32)}}>{item.realName}</Text>
+						</View>
+						<View style = {[styles.movieMainActors, {opacity: opacityArr[index], width: pxTodp(220)*scaleArrX[index] }]}> 
+							<Text style = {{color: '#7d838e',fontSize: pxTodp(22)}}>{item.roleName}</Text>
+						</View>
+					</View>
+				)
+			} else {
+				scrollArr.push(
+					<View key = {index}>
+						<View style = {{width:pxTodp(220), height:pxTodp(258), marginRight: pxTodp(15)*scaleArrX[index], marginLeft:pxTodp(15)*scaleArrX[index] }}>
+						</View>
+						<View style = {[styles.movieTitle, {opacity: opacityArr[index], width: pxTodp(220)*scaleArrX[index] }]}> 
+						</View>
+						<View style = {[styles.movieMainActors, {opacity: opacityArr[index], width: pxTodp(220)*scaleArrX[index] }]}> 
+						</View>
+					</View>
+				)
+			}
 
-	}
-	slideDownOrUpForWord () {
-		let { arrowDirectionForWord, wordHeight, sliderDownDistance } = this.state
-		if (arrowDirectionForWord == 'down') {
-			Animated.timing(
-				this.animatedValueWord,
-				{
-					toValue: 1
-				}
-			).start( () => {
-				this.setState({
-					arrowDirectionForWord: 'up',				
-				})
-			})
-		}
-		if (arrowDirectionForWord == 'up') {
-			Animated.timing(
-				this.animatedValueWord,
-				{
-					toValue: 0.31
-				}
-			).start( () => {
-				this.setState({
-					arrowDirectionForWord: 'down',
-				})
-			})
-		}
-	}
-	onAnimationEnd (e) {
-		let {ScreenHeight} = this.state
-		let offSetX = e.nativeEvent.contentOffset.x;
-		let offSetY = e.nativeEvent.contentOffset.y;
-		this.setState({
-			scrollY: offSetY
 		})
-		console.log('增加距离', offSetY)
-		let distance = (-offSetY/(ScreenHeight - pxTodp(150) - pxTodp(340) + offSetY))
-		this.animatedValue.setValue(distance)
-	}
-	render () {
-		let { arrowDirection, arrowDirectionForWord, ScreenWidth, ScreenHeight,sliderDownDistance, scrollY, marginTopForText, obj, FilmPersonIntro} = this.state
-		let targetDistance = ScreenHeight - pxTodp(150) - pxTodp(340) + scrollY
-		console.log('总距离', targetDistance)
-		const topDistance = this.animatedValue.interpolate({
-		    inputRange: [0, 1],
-		    outputRange: [0, targetDistance]
-		})
-		let wordTargetWidth = (Math.ceil(obj.summary.length / (ScreenWidth / pxTodp(28))) + 1) * (14+9)
-		const wordHeight = this.animatedValueWord.interpolate({
-		    inputRange: [0, 1],
-		    outputRange: [0, wordTargetWidth]
-		})
-		let AnimatedScrollView= Animated.createAnimatedComponent(ScrollView)
-		
-		let arrow = arrowDirection == 'down' ? require('../images/icon_arrowdown.png') : require('../images/icon_arrowup.png')
-		let arrowForWord = arrowDirectionForWord == 'down' ? require('../images/icon_arrowdown1.png') : require('../images/icon_arrowup1.png')
 		return (
-			<AnimatedScrollView scrollEventThrottle={16} bounces = {false} style = {[styles.FilmListDetailImgContainer, {marginTop: topDistance}]} onScrollEndDrag = { this.onAnimationEnd.bind(this) }>
-				<Image source = { {uri: obj.videoStills[0].thumbnailUrl } } style = { {width: '100%', height: pxTodp(400)} }/>
-				<TouchableHighlight style = { [styles.FilmListDetailImgContainerSlideBar]} onPress = { this.slideDownOrUp.bind(this)} >
-					<Image source = { arrow } style = { styles.iconArrowdown }/>
-				</TouchableHighlight>
-				<View style = { [styles.FilmListDetailImgContainerMain] } >
-					<View style = { styles.FilmAbstract}>
-						<Image style = { styles.FilmAbstractLeft} source = { {uri: obj.posterUrl} }/>
-						<View style = { styles.FilmAbstractRight}>
-							<Text style = { {fontSize: pxTodp(30), color: '#222833', marginBottom: pxTodp(60)} }>{obj.name}</Text>
-							<Text style = { {fontSize: pxTodp(24), color: '#7d838e', marginBottom: pxTodp(14)} }>{obj.phrase}</Text>
-							<Text style = { {fontSize: pxTodp(24), color: '#7d838e', marginBottom: pxTodp(14)} }>{obj.language}/{obj.duration}</Text>
-							<Text style = { {fontSize: pxTodp(24), color: '#7d838e'} }>{obj.releaseTime}</Text>
+			<View style = { styles.FilmSchemaInfoContent } >
+				<Image source = {require('../images/bj_android.png')} style = { styles.backImg }/>
+				<View style = { styles.FilmShemaTop }>
+					<View style = { styles.FilmAddressDes }>
+						<Text style = {{color: 'white', fontSize: pxTodp(32), marginBottom: pxTodp(24)}}>{ obj.place }</Text>
+						<Text style = {{color: 'white', fontSize: pxTodp(24), marginBottom: pxTodp(20)}}>{ obj.address }             ></Text>
+						<View style = {{flexDirection: 'row'}}>
+							<Text style = {styles.borderWord}>{obj.test1}</Text>
+							<Text style = {styles.borderWord}>{obj.test2}</Text>
+							<Text style = {styles.borderWord }>{obj.test3}</Text>
 						</View>
 					</View>
-					<Animated.Text style = { [styles.FilmIntroduction, {height: wordHeight}] }>    {obj.summary}</Animated.Text>
-					<View>
-						<TouchableHighlight style = { styles.FilmIntroductionWordBar} onPress = { this.slideDownOrUpForWord.bind(this)} >
-							<Image source = { arrowForWord } style = { styles.iconArrowdown }/>
-						</TouchableHighlight>
-						<View style = { styles.FilmPersonIntro}>
-							<View style = { styles.FilmPersonIntroHeader }>
-								<View style = {{width: pxTodp(10), height: pxTodp(30), backgroundColor: 'red', marginRight: pxTodp(20)}}></View>
-								<Text style = {{fontSize: pxTodp(28), color: '#222833'}}>演职人员</Text>
-							</View>
-							<ScrollView contentContainerStyle = { styles.FilmPersonIntroMain} horizontal = { true }>
-								{FilmPersonIntro}
-							</ScrollView>
-						</View>
+					<View style = {{width: pxTodp(100), justifyContent: 'center'}}>
+						<Image source = {require('../images/icon_map.png')} style = {{width: pxTodp(50), height: pxTodp(50)}}/>
+						<Text style = {{color: 'white', fontSize: pxTodp(24)}}>地图</Text>
 					</View>
 				</View>
-			</AnimatedScrollView>
+				<View >
+					<ScrollView
+						contentContainerStyle = {{height: pxTodp(400),marginTop: pxTodp(20)}}
+						{...this.props}
+						scrollEnabled = {this.state.scrollEnabled}
+						ref={(scrollView) => { this._scrollView = scrollView; }}
+						onScroll = {(event) => {this.distance(event)}}>
+						{scrollArr}
+					</ScrollView>
+				</View>
+
+				<View></View>
+			</View>
 		)
+
 	}
 }
 
 const styles = StyleSheet.create({
-	FilmListDetailImgContainer: {
-		position: 'absolute',
-		zIndex: 999,
-		left: 0,
-		right:0,
-		bottom:0,
-		top:0
-	},
-	FilmListDetailImgContainerSlideBar: {
-		width: '100%',
-		height: pxTodp(60),
-		backgroundColor: 'black',
-		opacity: 0.5,
-		alignItems: 'center',
-		justifyContent: 'center',
-		marginTop: pxTodp(-60)
-	},
-	iconArrowdown: {
-		width: pxTodp(20),
-		height: pxTodp(40)
-	},
-	FilmListDetailImgContainerMain: {
+	FilmSchemaInfoContent: {
 		flex: 1,
-		backgroundColor: 'white',
 		flexDirection: 'column',
+		position: 'relative'
 	},
-	FilmAbstract: {
-		marginTop: pxTodp(30),
-		marginLeft: pxTodp(30),
-		flexDirection: 'row'
+	FilmShemaTop: {
+		flexDirection: 'row', 
+		marginTop: pxTodp(60),
+		backgroundColor: '#fe4b37',
+		marginLeft: pxTodp(50),
+		height: pxTodp(200)
 	},
-	FilmAbstractLeft: {
-		width: pxTodp(148),
-		height: pxTodp(206),
-		marginRight: pxTodp(30),
-		marginBottom: pxTodp(44),
-	},
-	FilmAbstractRight: {
+	FilmAddressDes: {
+		flexDirection: 'column',
 		flex: 1
 	},
-	FilmIntroduction: {
-		fontSize: pxTodp(28),
-		lineHeight: pxTodp(46),
-		color: '#222833',
-		height: pxTodp(146),
-		marginLeft: pxTodp(30)
+	borderWord: {
+		fontSize: pxTodp(20), 
+		borderColor: 'white', 
+		borderWidth: pxTodp(1), 
+		color: 'white',
+		marginRight: pxTodp(16)
 	},
-	FilmIntroductionWordBar: {
+	backImg: {
 		width: '100%',
-		height: pxTodp(52),
-		backgroundColor: 'white',
+		height: pxTodp(600),
+		position: 'absolute',
+		zIndex: -9,
+	},
+	movieTitle: {
+		alignItems: 'center', 
+		marginTop: pxTodp(50),
+		marginBottom: pxTodp(14),
+		
+	},
+	movieMainActors: {
 		alignItems: 'center',
-		justifyContent: 'center'
-	},
-	FilmPersonIntro: {
-		flexDirection: 'column',
-		borderTopWidth: pxTodp(1),
-		borderTopColor: '#d1d6da',
-		marginTop: pxTodp(10),
-	},
-	FilmPersonIntroHeader: {
-		flexDirection: 'row',
-		marginTop: pxTodp(30),
-		marginBottom: pxTodp(30),
-		marginLeft: pxTodp(30)
-	},
-	FilmPersonIntroMain: {
+		
 	}
-
 })
+
+export default FilmSchemaInfo

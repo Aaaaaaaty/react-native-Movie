@@ -5,6 +5,7 @@ import { StyleSheet, View, Image, Text, WebView, TouchableOpacity, ScrollView, D
 import pxTodp from '../utils/pxTodp'
 
 const screenWidth = Dimensions.get('window').width
+
 class FilmSchemaInfo extends Component{
 	static defaultProps = {
 	    horizontal: true,
@@ -22,9 +23,10 @@ class FilmSchemaInfo extends Component{
 	  let scaleArrY = []
 	  for(let i=0; i<imgLength; i++){
 	  	opacityArr.push(0)
-	  	scaleArrX.push(1)
+	  	scaleArrX.push(new Animated.Value(1))
 	  	scaleArrY.push(1)
 	  }
+	  //let scaleArr = new Animated.Value(1)
 	  this.state = {
 	  	scrollEnabled: true,
 	  	opacityArr: opacityArr,
@@ -33,47 +35,100 @@ class FilmSchemaInfo extends Component{
 	  	distanceX: 0
 	  };
 	}
+	componentDidMount() {
+	}
 	onTouchEnd (e) {
 		let {distanceX} = this.state
 		this._scrollView.scrollTo({x: distanceX})
 	}
 	onScroll(e) {
 
-		let {opacityArr} = this.state
+		let {opacityArr, scaleArrX} = this.state
 		//this._view.props['children'][1].props['style']
 		let x = e.nativeEvent.contentOffset.x;
 		let realDistance = 0 //判断滑动距离是否超过一定距离，不超过则回到原距离，超过则前进一屏
 		for (let j = 0; j < opacityArr.length; j++) {
-			if ((pxTodp(220) + pxTodp(30))*j <= x && x < (pxTodp(220) + pxTodp(30))*(j+1/2)) {
-				realDistance = (pxTodp(220) + pxTodp(30))*j
-			} else if ((pxTodp(220) + pxTodp(30))*(j + 1/2) < x && x <= (pxTodp(220) + pxTodp(30))*(j+1)) {
-				realDistance = (pxTodp(220) + pxTodp(30))*(j+1)
+			if ((pxTodp(220) + pxTodp(50))*j <= x && x < (pxTodp(220) + pxTodp(50))*(j+1/2)) {
+				realDistance = (pxTodp(220) + pxTodp(50))*j
+			} else if ((pxTodp(220) + pxTodp(50))*(j + 1/2) < x && x <= (pxTodp(220) + pxTodp(50))*(j+1)) {
+				realDistance = (pxTodp(220) + pxTodp(50))*(j+1)
 			}
 		}
-		let indexImg = Math.round(x/(pxTodp(220) + pxTodp(30))) + 1
+		let indexImg = Math.round(x/(pxTodp(220) + pxTodp(50))) + 1
+
 		let opacityArrTemp = []
-		let scaleArrXTemp = []
+		//let scaleArrXTemp = []
 		let scaleArrYTemp = []
 		for(let i = 0; i < opacityArr.length; i++){
 			if (i != indexImg) {
 				opacityArrTemp[i] = 0
-				scaleArrXTemp[i] = 1
-				scaleArrYTemp[i] = 1
 			} else if (i == indexImg) {
 				opacityArrTemp[i] = 1
-				scaleArrXTemp[i] = 1.2
-				scaleArrYTemp[i] = 1.24
 			}
 		}
-		this.setState({
-			opacityArr: opacityArrTemp,
-			scaleArrX: scaleArrXTemp,
-			scaleArrY: scaleArrYTemp,
-			distanceX: realDistance
-		})
+		for (let i = 0; i < opacityArr.length; i++) {
+			if (indexImg == i) {
+				Animated.timing(
+					scaleArrX[i],
+					{
+						toValue: x + 135,
+						duration: 0
+					}
+				).start(
+					this.setState({
+						opacityArr: opacityArrTemp,
+						distanceX: realDistance
+					})
+				)
+			} else if ((i == indexImg - 1) || ( i == indexImg + 1)) {
+				Animated.timing(
+					scaleArrX[i],
+					{
+						toValue: x + 135,
+						duration: 0
+					}
+				).start(
+					this.setState({
+						opacityArr: opacityArrTemp,
+						distanceX: realDistance
+					})
+				)
+			} else {
+				Animated.timing(
+					scaleArrX[i],
+					{
+						toValue: 135*(i+1),
+						duration: 0
+					}
+				).start(
+					this.setState({
+						opacityArr: opacityArrTemp,
+						distanceX: realDistance
+					})
+				)
+			}
+		}
 	}
 	render() {
 		let {opacityArr, scaleArrX, scaleArrY} = this.state
+		let realScaleX = []
+		for (let k = 0; k < scaleArrX.length; k++) {
+			if (k>=1) {
+				realScaleX.push(
+					scaleArrX[k].interpolate({
+						inputRange:[0, 135*(k-1), 135*k, 135*(k+1), 100000],
+						outputRange:[1, 1, 1.24, 1, 1]
+					})
+				)
+			} else {
+				realScaleX.push(
+					scaleArrX[k].interpolate({
+						inputRange:[135*k, 135*(k+1)],
+						outputRange:[1.24, 1]
+					})
+				)
+			}
+		}
 		let obj = {
 			"place": '完美世界影城（望京店）',
 			"address": '北京市朝阳区东亚望京中心北门',
@@ -237,13 +292,13 @@ class FilmSchemaInfo extends Component{
 			if (item.imageUrl) {
 				scrollArr.push(
 					<View key = {index}>
-						<View style = {{width:pxTodp(220), height:pxTodp(258), marginRight: pxTodp(15)*scaleArrX[index], marginLeft:pxTodp(15)*scaleArrX[index] }}>
-							<Image source = {{uri: item.imageUrl}} style = {{width:pxTodp(220), height:pxTodp(258), transform: [{scaleX:scaleArrX[index]}, {scaleY: scaleArrY[index]}] }}/>
+						<View style = {{width:pxTodp(220), height:pxTodp(258), marginRight: pxTodp(15), marginLeft:pxTodp(15), shadowColor:'#64728d',shadowOpacity:0.6,shadowOffset:{width:0, height: pxTodp(10)}  }}>
+							<Animated.Image source = {{uri: item.imageUrl}} style = {{width:pxTodp(220), height:pxTodp(258), transform: [{scaleX:realScaleX[index]}, {scaleY: realScaleX[index]}] }}/>
 						</View>
-						<View style = {[styles.movieTitle, {opacity: opacityArr[index], width: pxTodp(220)*scaleArrX[index] }]}> 
+						<View style = {[styles.movieTitle, {opacity: opacityArr[index], width: pxTodp(264) }]}> 
 							<Text style = {{color: '#222833',fontSize: pxTodp(32)}}>{item.realName}</Text>
 						</View>
-						<View style = {[styles.movieMainActors, {opacity: opacityArr[index], width: pxTodp(220)*scaleArrX[index] }]}> 
+						<View style = {[styles.movieMainActors, {opacity: opacityArr[index], width: pxTodp(264) }]}> 
 							<Text style = {{color: '#7d838e',fontSize: pxTodp(22)}}>{item.roleName}</Text>
 						</View>
 					</View>
@@ -251,11 +306,11 @@ class FilmSchemaInfo extends Component{
 			} else {
 				scrollArr.push(
 					<View key = {index}>
-						<View style = {{width:pxTodp(220), height:pxTodp(258), marginRight: pxTodp(15)*scaleArrX[index], marginLeft:pxTodp(15)*scaleArrX[index] }}>
+						<View style = {{width:pxTodp(220), height:pxTodp(258), marginRight: pxTodp(15), marginLeft:pxTodp(15) }}>
 						</View>
-						<View style = {[styles.movieTitle, {opacity: opacityArr[index], width: pxTodp(220)*scaleArrX[index] }]}> 
+						<View style = {[styles.movieTitle, {opacity: opacityArr[index], width: pxTodp(264) }]}> 
 						</View>
-						<View style = {[styles.movieMainActors, {opacity: opacityArr[index], width: pxTodp(220)*scaleArrX[index] }]}> 
+						<View style = {[styles.movieMainActors, {opacity: opacityArr[index], width: pxTodp(264) }]}> 
 						</View>
 					</View>
 				)
@@ -295,7 +350,7 @@ class FilmSchemaInfo extends Component{
 						contentContainerStyle = {{height: pxTodp(400),marginTop: pxTodp(20)}}
 						{...this.props}
 						ref={(scrollView) => { this._scrollView = scrollView; }}
-						onScroll = {(event) => {this.onScroll(event)}}
+						onScroll = {(event) => this.onScroll(event)}
 						onTouchEnd = {(event) => this.onTouchEnd()}>
 						{scrollArr}
 					</ScrollView>
